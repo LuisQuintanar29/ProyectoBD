@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get('/',(rq,res) =>{
-    res.render('index',{title:'Papelerias'});
+    res.render('index',{title:'Papelerias Blue Silver'});
 })
 
 router.get('/contact',(rq,res) =>{
