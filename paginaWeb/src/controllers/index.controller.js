@@ -12,13 +12,15 @@ const getContact = (rq,res) =>{
 const getIndex = (rq,res) =>{
     res.render('index',{title:'Papelerias Blue Silver'});
 }
-const getUsers = async (rq,res) =>{
-    const response  = await pool.query('SELECT * FROM users');
-    console.log(response.rows);
-    res.send('users');
+const getUser = (rq,res) =>{
+    res.render('user',{title:'Usuario'});
+}
+const getShop = (rq,res) =>{
+    res.render('shop',{title:'TIenda'});
 }
 module.exports = {
     getIndex,
     getContact,
-    getUsers
+    getUser,
+    getShop
 }

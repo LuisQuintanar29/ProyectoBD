@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {getIndex, getContact, getUsers} = require('../controllers/index.controller')
+const {getIndex, getContact, getUser, getShop} = require('../controllers/index.controller')
 
 router.get('/',getIndex);
-router.get('/users',getUsers);
-
+router.get('/user',getUser);
 router.get('/contact',getContact);
+router.get('/shop',getShop);
 
 module.exports = router;    

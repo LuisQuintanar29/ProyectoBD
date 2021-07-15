@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head.ejs'); %>
+    <title><%= title%></title>
+</head>
+<body>
+    <%- include('./partials/navigation.ejs'); %>
+    <div class="all_container">
+        <div class="backbox">
+            <div class="backbox_login">
+                <h3> ¿Ya tienes cuenta?</h3>
+                <p>Inicia sesion</p>
+                <button class=" animate__animated animate__wobble animate__slow" id="login">Iniciar sesion</button>
+            </div>
+            <div class="backbox_register ">
+                <h3 class=" animate__animated animate__rubberBand"> ¿Aun no tienes cuenta?</h3>
+                <p>Registrate</p>
+                <button class=" animate__animated animate__wobble animate__slow" id="register">Registrarse</button>
+            </div>
+        </div>
+        <!-- Formularios de Login y Registro-->
+        <div class="container_forms">
+            <form action="" class="form__login">
+                <h2 class="animate__animated animate__rubberBand">Iniciar sesion</h2>
+                <input type="text" placeholder="Correo electronico">
+                <input type="password" placeholder="Contraseña">
+                <button class=" animate__animated animate__wobble animate__slow">Entrar</button>
+            </form>
+            <form action="" class="form__register">
+                <h2 class="animate__animated animate__rubberBand">Registrarse</h2>
+                <input type="text" placeholder="Nombre Completo">
+                <input type="text" placeholder="Correo electronico">
+                <input type="text" placeholder="Usuario">
+                <input type="password" placeholder="Contraseña">
+                <button class=" animate__animated animate__wobble animate__slow">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs'); %> 
+    <script src="/js/user.js"></script>
+</body>
+</html>
