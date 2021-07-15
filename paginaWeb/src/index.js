@@ -8,9 +8,11 @@ app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 
 //Midlewares
-app.use(require('./routes/'));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 //Routes
+app.use(require('./routes/'));
 
 //Static files
 app.use(express.static(path.join(__dirname,'public')));

@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+const {getIndex, getContact, getUsers} = require('../controllers/index.controller')
 
-router.get('/',(rq,res) =>{
-    res.render('index',{title:'Papelerias Blue Silver'});
-})
+router.get('/',getIndex);
+router.get('/users',getUsers);
 
-router.get('/contact',(rq,res) =>{
-    res.render('contact',{title:'Contact'});
-})
+router.get('/contact',getContact);
 
-module.exports = router;
+module.exports = router;    
