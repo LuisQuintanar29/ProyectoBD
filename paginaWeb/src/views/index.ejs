@@ -9,6 +9,135 @@
 </head>
 <body>
     <%- include('./partials/navigation.ejs'); %>
+
+    <!-- Slider -->
+    <div class="container-slider">
+        <div class="slider" id="slider">
+            <div class="slider__section">
+                <img src="/img/img1.png" alt="" class="slider__img">
+            </div>
+            <div class="slider__section">
+                <img src="/img/img2.png" alt="" class="slider__img">
+            </div>
+            <div class="slider__section">
+                <img src="/img/img3.png" alt="" class="slider__img">
+            </div>
+            <div class="slider__section">
+                <img src="/img/img4.png" alt="" class="slider__img">
+            </div>
+            <div class="slider__section">
+                <img src="/img/img5.png" alt="" class="slider__img">
+            </div>
+            <div class="slider__section">
+                <img src="/img/img6.png" alt="" class="slider__img">
+            </div>
+        </div>
+        <div class="slider__btn slider__btn--right" id="btn-right">&#62;</div>
+        <div class="slider__btn slider__btn--left" id="btn-left">&#60;</div>
+    </div>
+
+    <div>
+        <p class="enfasis">
+            Papelerias de Mayoreo en la Ciudad de Mexico
+        </p>
+        <p class="description">
+            Papelerias BLUESILVER es una empresa 100% mexicana con 60 años de experiencia en el mercado. Durante
+            todo este tiempo nos hemos mantenido con una visión vanguardista y de proyección para todas las necesidades 
+            de papelerías al mayoreo, pequeños negocio o grandes empresas; sin olvidarnos de la venta de artículos 
+            escolares almenudeo y amplio surtido de papelería para oficinas o licitaciones de gobierno.</br>
+
+            ​Nuestro crecimiento permitió ofrecer a nuestros clientes, socios comerciales y amigos, una gran variedad
+            de artículos escolares, didácticos y de oficina.</br>
+            
+            ​Nuestra tarea más importante es proveerle materiales de calidad a precios realmente accesibles y con un
+            servicio especial de entrega a domicilio en áreas locales y foráneas.</br> 
+        </p>
+    </div>
+    <div class="gallery">
+        <a href="#image1">
+            <img class="img__gallery" src="/img/art1.jpg" alt="">
+        </a>
+        <a href="#image2">
+            <img class="img__gallery" src="/img/art2.jpg" alt="">
+        </a>
+        <a href="#image3">
+            <img class="img__gallery" src="/img/art3.jpg" alt="">
+        </a>
+        <a href="#image4">
+            <img class="img__gallery" src="/img/art4.jpg" alt="">
+        </a>
+        <a href="#image5">
+            <img class="img__gallery" src="/img/art5.jpg" alt="">
+        </a>
+        <a href="#image6">
+            <img class="img__gallery" src="/img/art6.jpg" alt="">
+        </a>
+        <a href="#image7">
+            <img class="img__gallery" src="/img/art7.jpg" alt="">
+        </a>
+        <a href="#image8">
+            <img class="img__gallery" src="/img/art8.jpg" alt="">
+        </a>
+    </div>
+
+    <article class="light-box" id="image1">
+        <a class="next" href="#image8"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art1.jpg" alt="">
+        <a class="next" href="#image2"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+    
+    <article class="light-box" id="image2">
+        <a class="next" href="#image1"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art2.jpg" alt="">
+        <a class="next" href="#image3"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image3">
+        <a class="next" href="#image2"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art3.jpg" alt="">
+        <a class="next" href="#image4"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image4">
+        <a class="next" href="#image3"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art4.jpg" alt="">
+        <a class="next" href="#image5"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image5">
+        <a class="next" href="#image4"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art5.jpg" alt="">
+        <a class="next" href="#image6"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image6">
+        <a class="next" href="#image5"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art6.jpg" alt="">
+        <a class="next" href="#image7"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image7">
+        <a class="next" href="#image6"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art7.jpg" alt="">
+        <a class="next" href="#image8"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <article class="light-box" id="image8">
+        <a class="next" href="#image7"><i class="fas fa-arrow-left"></i></a>
+        <img src="/img/art8.jpg" alt="">
+        <a class="next" href="#image1"><i class="fas fa-arrow-right"></i></a>
+        <a class="close" href="#">X</a>
+    </article>
+
+    <script src="/js/slider.js"></script>
+
     <%- include('./partials/footer.ejs'); %>
 </body>
 </html>
