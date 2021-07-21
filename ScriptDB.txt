@@ -74,3 +74,4 @@ Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED
 );
 
 
+
