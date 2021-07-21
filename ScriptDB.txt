@@ -1,0 +1,76 @@
+sudo service postgresql start
+sudo -i -u postgres psql
+
+CREATE DATABASE papeleria;
+
+
+CREATE TABLE cliente(
+RFC varchar(13),
+NombreCliente varchar(70) NOT NULL ,
+DomicilioCliente varchar(70) NOT NULL,
+PRIMARY KEY (RFC)
+);
+
+CREATE TABLE email(
+Email varchar(50) NOT NULL,
+RFC varchar(13) NOT NULL,
+PRIMARY KEY (Email),
+FOREIGN KEY (RFC) REFERENCES cliente(RFC)
+);
+
+CREATE TABLE proveedor(
+RazonSocial varchar(30) NOT NULL,
+DomicilioProv varchar(30) NOT NULL,
+NombreProv varchar(70) NOT NULL,
+PRIMARY KEY (RazonSocial)
+);
+
+CREATE TABLE telefono(
+Telefono int,
+RazonSocial varchar(30) NOT NULL,
+PRIMARY KEY (Telefono),
+FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial)
+);
+
+CREATE TABLE inventario(
+CodigoBarras int,
+PrecioCompra int,
+FechaCompra date,
+Stock int,
+PRIMARY KEY (CodigoBarras)
+);
+
+CREATE TABLE producto(
+CodigoBarras int,
+PrecioProd int,
+Marca varchar(15) NOT NULL,
+DescripcionProd varchar(30) NOT NULL,
+TipoProd varchar(30) NOT NULL,
+PRIMARY KEY (CodigoBarras),
+FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras)
+);
+
+CREATE TABLE impresion(
+TamañoHoja varchar(15) NOT NULL,
+TipoImpresion varchar(15) NOT NULL,
+PrecioServ int,
+DescripcionServ varchar(30) NOT NULL,
+PRIMARY KEY (TamañoHoja,TipoImpresion)
+);
+
+CREATE TABLE recarga(
+Compañia varchar(30) NOT NULL,
+PrecioServ int,
+DescripcionServ varchar(30) NOT NULL,
+PRIMARY KEY (Compañia,PrecioServ)
+);
+
+CREATE TABLE consumo(
+NoVenta int,
+FechaVenta date,
+CantidadArticulo int,
+PrecioArticulo int,
+Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED
+);
+
+
