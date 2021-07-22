@@ -3,9 +3,25 @@ sudo -i -u postgres psql
 
 CREATE DATABASE papeleria;
 
+\c papeleria
+
+DROP TABLE IF EXISTS cliente CASCADE;
+DROP TABLE IF EXISTS compañia CASCADE;
+DROP TABLE IF EXISTS consumo CASCADE;
+DROP TABLE IF EXISTS email CASCADE;
+DROP TABLE IF EXISTS impresion CASCADE;
+DROP TABLE IF EXISTS inventario CASCADE;
+DROP TABLE IF EXISTS preciorecarga CASCADE;
+DROP TABLE IF EXISTS producto CASCADE;
+DROP TABLE IF EXISTS proveedor CASCADE;
+DROP TABLE IF EXISTS recarga CASCADE;
+DROP TABLE IF EXISTS tamañohoja CASCADE;
+DROP TABLE IF EXISTS telefono CASCADE;
+DROP TABLE IF EXISTS tipoimpresion CASCADE;
+DROP TABLE IF EXISTS tipoproducto CASCADE;
 
 CREATE TABLE cliente(
-RFC varchar(13),
+RFC varchar(13) NOT NULL,
 NombreCliente varchar(70) NOT NULL ,
 DomicilioCliente varchar(70) NOT NULL,
 PRIMARY KEY (RFC)
@@ -40,29 +56,64 @@ Stock int,
 PRIMARY KEY (CodigoBarras)
 );
 
+CREATE TABLE tipoproducto(
+IDTipoProd serial,
+TipoProducto varchar(30) NOT NULL,
+PRIMARY KEY (IDTipoProd)
+);
+
 CREATE TABLE producto(
 CodigoBarras int,
 PrecioProd int,
 Marca varchar(15) NOT NULL,
 DescripcionProd varchar(30) NOT NULL,
-TipoProd varchar(30) NOT NULL,
+IDTipoProd int,
 PRIMARY KEY (CodigoBarras),
-FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras)
+FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras),
+FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd)
+);
+
+CREATE TABLE tipoimpresion(
+IDTipoImpresion serial,
+TipoImpresion varchar(15) NOT NULL,
+PRIMARY KEY (IDTipoImpresion)
+);
+
+CREATE TABLE tamañohoja(
+IDTamaño serial,
+TamañoHoja varchar(15) NOT NULL,
+PRIMARY KEY (IDTamaño)
 );
 
 CREATE TABLE impresion(
-TamañoHoja varchar(15) NOT NULL,
-TipoImpresion varchar(15) NOT NULL,
+IDTamaño int,
+IDTipoImpresion int,
 PrecioServ int,
 DescripcionServ varchar(30) NOT NULL,
-PRIMARY KEY (TamañoHoja,TipoImpresion)
+PRIMARY KEY (IDTamaño,IDTipoImpresion),
+FOREIGN KEY (IDTipoImpresion) REFERENCES tipoimpresion (IDTipoImpresion),
+FOREIGN KEY (IDTamaño) REFERENCES tamañohoja (IDTamaño)
+);
+
+CREATE TABLE compañia(
+IDCompañia serial,
+Compañia varchar(30) NOT NULL,
+PRIMARY KEY (IDCompañia)
+);
+
+CREATE TABLE preciorecarga(
+IDRecarga serial,
+PrecioRecarga int,
+PRIMARY KEY (IDRecarga)
 );
 
 CREATE TABLE recarga(
-Compañia varchar(30) NOT NULL,
-PrecioServ int,
+IDCompañia int,
+IDRecarga int,
 DescripcionServ varchar(30) NOT NULL,
-PRIMARY KEY (Compañia,PrecioServ)
+PRIMARY KEY (IDCompañia,IDRecarga),
+FOREIGN KEY (IDCompañia) REFERENCES compañia (IDCompañia),
+FOREIGN KEY (IDRecarga) REFERENCES  preciorecarga (IDRecarga)
 );
 
 CREATE TABLE consumo(
@@ -73,5 +124,39 @@ PrecioArticulo int,
 Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED
 );
 
+INSERT INTO tipoproducto (TipoProducto) VALUES ('Regalo');
+INSERT INTO tipoproducto (TipoProducto) VALUES ('Articulo de papeleria');
 
+
+INSERT INTO tipoimpresion (TipoImpresion) VALUES ('Blanco/Negro');
+INSERT INTO tipoimpresion (TipoImpresion) VALUES ('Color');
+
+
+INSERT INTO tamañohoja (TamañoHoja) VALUES ('A0');
+INSERT INTO tamañohoja (TamañoHoja) VALUES ('A1');
+INSERT INTO tamañohoja (TamañoHoja) VALUES ('A2');
+INSERT INTO tamañohoja (TamañoHoja) VALUES ('A3');
+INSERT INTO tamañohoja (TamañoHoja) VALUES ('A4');
+
+
+INSERT INTO compañia (compañia) VALUES ('Movistar');
+INSERT INTO compañia (compañia) VALUES ('Telcel');
+INSERT INTO compañia (compañia) VALUES ('UNEFON');
+INSERT INTO compañia (compañia) VALUES ('AT&T');
+
+
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (10);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (20);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (30);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (50);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (100);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (200);
+INSERT INTO preciorecarga (PrecioRecarga) VALUES (500);
+
+
+SELECT * FROM tipoproducto;
+SELECT * FROM compañia;
+SELECT * FROM preciorecarga;
+SELECT * FROM tipoimpresion;
+SELECT * FROM tamañohoja;
 
