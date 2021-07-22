@@ -7,9 +7,11 @@ Proyecto Final de la asignatura de bases de datos
 	> sudo apt-get install libpq-dev
 - Creamos un usuario en la base de datos, en nuestro caso usuario admin
 	> sudo service postgresql start
+	
 	> sudo -i -u postgres psql
 	
 	> CREATE USER admin WITH PASSWORD 'admin';
+	
 	> GRANT ALL PRIVILEGES ON DATABASE papeleria to admin;
 	
 -Configuramos el pg_hba.confi
