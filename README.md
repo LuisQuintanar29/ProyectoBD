@@ -12,7 +12,14 @@ Proyecto Final de la asignatura de bases de datos
 	
 	> CREATE USER admin WITH PASSWORD 'admin';
 	
-	> GRANT ALL PRIVILEGES ON DATABASE papeleria to admin;
+	> GRANT CONNECT ON DATABASE papeleria TO admin;
+	
+	> GRANT USAGE ON SCHEMA public TO admin;
+	
+	> GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
+	
+	> GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admin;
+
 	
 -Configuramos el pg_hba.confi
 	> sudo gedit /etc/postgresql/13/main/pg_hba.conf

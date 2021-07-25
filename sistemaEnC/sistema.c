@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <libpq-fe.h>
 
+
 void do_exit(PGconn *conn, PGresult *res) {
     
     fprintf(stderr, "%s\n", PQerrorMessage(conn));    
@@ -10,6 +11,33 @@ void do_exit(PGconn *conn, PGresult *res) {
     PQfinish(conn);    
     
     exit(1);
+}
+
+void printSELECT(PGconn *conn, char * string){
+
+    PGresult *res = PQexec(conn, string);    
+    
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+
+        printf("No data retrieved\n");        
+        PQclear(res);
+        do_exit(conn,res);
+    }    
+    
+    int rows = PQntuples(res);
+    int columns = PQnfields(res);
+    
+    printf("%s\n",string);
+    for(int i=0; i<rows; i++) {
+        for(int j = 0; j< columns;j++){
+            printf("%s ", PQgetvalue(res, i, j));
+        }
+        printf("\n");
+    }    
+    printf("\n");
+
+    
+    PQclear(res);
 }
 
 int main() {
@@ -102,8 +130,14 @@ int main() {
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         do_exit(conn, res);   
     }
-    
     PQclear(res);  
+
+    printSELECT(conn, "SELECT * FROM tipoproducto;");
+    printSELECT(conn, "SELECT * FROM compañia;");
+    printSELECT(conn, "SELECT * FROM preciorecarga;");
+    printSELECT(conn, "SELECT * FROM tipoimpresion;");
+    printSELECT(conn, "SELECT * FROM tamañohoja;");
+    
     PQfinish(conn);
 
     return 0;
