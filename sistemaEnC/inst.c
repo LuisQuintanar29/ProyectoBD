@@ -87,8 +87,8 @@ char * leerCad(int tam, char * msj)
 char * UnirInfoCliente(char * RFC, char * nombre, char ** domicilio)
 {
     char inicio[] = "INSERT INTO cliente VALUES ('";
-    char * instruccion = malloc(sizeof(char)*31);
-    memcpy(instruccion,inicio,strlen(inicio)+1);
+    char * instruccion = (char*) malloc(sizeof(char)*30);
+    memcpy(instruccion,inicio,strlen(inicio));
 
     strcat(instruccion,RFC);
     strcat(instruccion,"','");
@@ -117,6 +117,7 @@ void registrarCliente(PGconn *conn)
     char * domicilio[5];
     char * email;
     char * inst;
+    char * instEmail = (char*) malloc(sizeof(char)*28);
 
     RFC = leerCad(13,"Ingrese su RFC \n");
     nombre = leerCad(70,"Ingrese su Nombre \n");
@@ -129,20 +130,14 @@ void registrarCliente(PGconn *conn)
 
     inst = UnirInfoCliente(RFC,nombre,domicilio);
 
+    memcpy(instEmail,"INSERT INTO email VALUES ('",28);
+    strcat(instEmail,email);
+    strcat(instEmail,"','");
+    strcat(instEmail,RFC);
+    strcat(instEmail,"')");
 
-    inst = UnirInfoCliente(RFC,nombre,domicilio);
-
-    printf("\n\n\n%s-%ld\n",RFC,strlen(RFC));
-    printf("%s-%ld\n",nombre,strlen(nombre));
-    printf("%s-%ld\n",domicilio[0],strlen(domicilio[0]));
-    printf("%s-%ld\n",domicilio[1],strlen(domicilio[1]));
-    printf("%s-%ld\n",domicilio[2],strlen(domicilio[2]));
-    printf("%s-%ld\n",domicilio[3],strlen(domicilio[3]));
-    printf("%s-%ld\n",domicilio[4],strlen(domicilio[4]));
-    printf("%s-%ld\n",email,strlen(email));;
-    printf("%s-%ld\n",inst,strlen(inst));
+    printf("%s-%ld\n",instEmail,strlen(instEmail));
 
     //do_something(conn,inst);
-
 }
 
