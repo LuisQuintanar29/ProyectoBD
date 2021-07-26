@@ -52,7 +52,11 @@ void printSELECT(PGconn *conn, char * string)
 // Limpia el buffer de entrada
 void vacia_buffer()
 {
-  while (getchar() != '\n');
+    int fdflags;
+    fdflags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, fdflags | O_NONBLOCK);
+    while (getchar()!=EOF);
+    fcntl(STDIN_FILENO, F_SETFL, fdflags);
 }
 
 // Lee una cadena y devuelve la cadena con un maximo tam
@@ -76,7 +80,7 @@ char * leerCad(int tam, char * msj)
 		}
 		*(cad+i) = letra;
 	}
-    if (i >= tam) vacia_buffer();
+    if (i > tam) vacia_buffer();
 	return cad;
 }
 
