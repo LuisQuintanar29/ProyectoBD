@@ -19,7 +19,7 @@ Proyecto Final de la asignatura de bases de datos
 	> GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin;
 	
 	> GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO admin;
-
+	
 	
 -Configuramos el pg_hba.confi
 	> sudo gedit /etc/postgresql/13/main/pg_hba.conf
@@ -28,7 +28,7 @@ Proyecto Final de la asignatura de bases de datos
 - Reiniciamos 
 	> sudo service postgresql restart
 - Compilamos
-	> gcc -Wall sistema.c -o sis.out -I/usr/include/postgresql -lpq -std=c99
+	> gcc -Wall sistema.c -o sis.out -I/usr/include/postgresql -lpq -std=c99 inst.c
 - Ejecutamos
 	> ./sis.out
 	
