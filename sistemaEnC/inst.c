@@ -69,7 +69,31 @@ char * leerCad(int tam, char * msj)
 	return cad;
 }
 
-// 
+char * UnirInfoCliente(char * RFC, char * nombre, char ** domicilio)
+{
+    char inicio[] = "INSERT INTO cliente VALUES ('";
+    char * instruccion = malloc(sizeof(char)*31);
+    memcpy(instruccion,inicio,strlen(inicio)+1);
+
+    strcat(instruccion,RFC);
+    strcat(instruccion,"','");
+    strcat(instruccion,nombre);
+    strcat(instruccion,"','");
+    strcat(instruccion,domicilio[0]);
+    strcat(instruccion,"','");
+    strcat(instruccion,domicilio[1]);
+    strcat(instruccion,"','");
+    strcat(instruccion,domicilio[2]);
+    strcat(instruccion,"',");
+    strcat(instruccion,domicilio[3]);
+    strcat(instruccion,",");
+    strcat(instruccion,domicilio[4]);
+    strcat(instruccion,")");
+
+    return instruccion;
+}
+
+// Almacena los datos del cliente y los inserta en la tabla
 void registrarCliente(PGconn *conn)
 {
     char * RFC;
@@ -77,6 +101,7 @@ void registrarCliente(PGconn *conn)
     // Domicilio[Estado,Colonia,Calle,CP,Numero]
     char * domicilio[5];
     char * email;
+    char * inst;
 
     RFC = leerCad(13,"Ingrese su RFC \n");
     nombre = leerCad(70,"Ingrese su Nombre \n");
@@ -87,21 +112,15 @@ void registrarCliente(PGconn *conn)
     domicilio[4] = leerCad(5,"Ingrese su Numero Oficial \n");
     email = leerCad(50,"Ingrese su email\n");
 
-    printf("\n\n\n%s-%ld\n",RFC,strlen(RFC));
-    printf("\n%s-%ld\n",nombre,strlen(nombre));
-    printf("\n%s-%ld\n",domicilio[0],strlen(domicilio[0]));
-    printf("\n%s-%ld\n",domicilio[1],strlen(domicilio[1]));
-    printf("\n%s-%ld\n",domicilio[2],strlen(domicilio[2]));
-    printf("\n%s-%ld\n",domicilio[3],strlen(domicilio[3]));
-    printf("\n%s-%ld\n",domicilio[4],strlen(domicilio[4]));
-    printf("\n%s-%ld\n",email,strlen(email));
+    inst = UnirInfoCliente(RFC,nombre,domicilio);
 
-    PGresult *res = PQexec(conn, "DROP TABLE IF EXISTS Cars");
+    PGresult *res = PQexec(conn, inst);
     
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
         do_exit(conn, res);
     }
 
     PQclear(res);
+
 }
 

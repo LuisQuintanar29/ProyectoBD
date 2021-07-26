@@ -12,6 +12,7 @@ int main(){
     }
     
     registrarCliente(conn);
+    
     /*
     printSELECT(conn, "SELECT * FROM tipoproducto;");
     printSELECT(conn, "SELECT * FROM compañia;");
