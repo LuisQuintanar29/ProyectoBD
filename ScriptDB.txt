@@ -23,7 +23,11 @@ DROP TABLE IF EXISTS tipoproducto CASCADE;
 CREATE TABLE cliente(
 RFC varchar(13) NOT NULL,
 NombreCliente varchar(70) NOT NULL ,
-DomicilioCliente varchar(70) NOT NULL,
+EstadoCliente varchar(70) NOT NULL,
+ColoniaCliente varchar(70) NOT NULL,
+CalleCliente varchar(70) NOT NULL,
+CPCliente int NOT NULL,
+NumeroCliente int NOT NULL,
 PRIMARY KEY (RFC)
 );
 
@@ -36,23 +40,27 @@ FOREIGN KEY (RFC) REFERENCES cliente(RFC)
 
 CREATE TABLE proveedor(
 RazonSocial varchar(30) NOT NULL,
-DomicilioProv varchar(30) NOT NULL,
 NombreProv varchar(70) NOT NULL,
+EstadoProv varchar(70) NOT NULL,
+ColoniaProv varchar(70) NOT NULL,
+CalleProv varchar(70) NOT NULL,
+CPProv int NOT NULL,
+NumeroProv int NOT NULL,
 PRIMARY KEY (RazonSocial)
 );
 
 CREATE TABLE telefono(
-Telefono int,
+Telefono int NOT NULL,
 RazonSocial varchar(30) NOT NULL,
 PRIMARY KEY (Telefono),
 FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial)
 );
 
 CREATE TABLE inventario(
-CodigoBarras int,
-PrecioCompra int,
-FechaCompra date,
-Stock int,
+CodigoBarras int NOT NULL,
+PrecioCompra int NOT NULL,
+FechaCompra date NOT NULL,
+Stock int NOT NULL,
 PRIMARY KEY (CodigoBarras)
 );
 
@@ -63,11 +71,11 @@ PRIMARY KEY (IDTipoProd)
 );
 
 CREATE TABLE producto(
-CodigoBarras int,
-PrecioProd int,
+CodigoBarras int NOT NULL,
+PrecioProd int NOT NULL,
 Marca varchar(15) NOT NULL,
 DescripcionProd varchar(30) NOT NULL,
-IDTipoProd int,
+IDTipoProd int NOT NULL,
 PRIMARY KEY (CodigoBarras),
 FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras),
 FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd)
@@ -86,9 +94,9 @@ PRIMARY KEY (IDTamaño)
 );
 
 CREATE TABLE impresion(
-IDTamaño int,
-IDTipoImpresion int,
-PrecioServ int,
+IDTamaño int NOT NULL,
+IDTipoImpresion int NOT NULL,
+PrecioServ int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
 PRIMARY KEY (IDTamaño,IDTipoImpresion),
 FOREIGN KEY (IDTipoImpresion) REFERENCES tipoimpresion (IDTipoImpresion),
@@ -103,13 +111,13 @@ PRIMARY KEY (IDCompañia)
 
 CREATE TABLE preciorecarga(
 IDRecarga serial,
-PrecioRecarga int,
+PrecioRecarga int NOT NULL,
 PRIMARY KEY (IDRecarga)
 );
 
 CREATE TABLE recarga(
-IDCompañia int,
-IDRecarga int,
+IDCompañia int NOT NULL,
+IDRecarga int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
 PRIMARY KEY (IDCompañia,IDRecarga),
 FOREIGN KEY (IDCompañia) REFERENCES compañia (IDCompañia),
@@ -117,10 +125,10 @@ FOREIGN KEY (IDRecarga) REFERENCES  preciorecarga (IDRecarga)
 );
 
 CREATE TABLE consumo(
-NoVenta int,
-FechaVenta date,
-CantidadArticulo int,
-PrecioArticulo int,
+NoVenta int NOT NULL,
+FechaVenta date NOT NULL,
+CantidadArticulo int NOT NULL,
+PrecioArticulo int NOT NULL,
 Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED
 );
 
