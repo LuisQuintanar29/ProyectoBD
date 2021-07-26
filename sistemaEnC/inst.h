@@ -13,5 +13,6 @@ void printSELECT(PGconn *conn, char * string);
 void registrarCliente(PGconn *conn);
 void vacia_buffer();
 char * leerCad(int tam, char * msj);
+void do_something(PGconn *conn, char * instruction);
 
 #endif

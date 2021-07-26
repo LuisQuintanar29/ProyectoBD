@@ -9,6 +9,18 @@ void do_exit(PGconn *conn, PGresult *res)
     exit(1);
 }
 
+// Realiza alguna accion en la base de datos
+void do_something(PGconn *conn, char * instruction)
+{
+    PGresult *res = PQexec(conn, instruction);
+    
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        do_exit(conn, res);
+    }
+
+    PQclear(res);
+}
+
 // Muestra el resultado de realizar consultas SELECT
 void printSELECT(PGconn *conn, char * string)
 {
@@ -40,8 +52,7 @@ void printSELECT(PGconn *conn, char * string)
 // Limpia el buffer de entrada
 void vacia_buffer()
 {
-  int ch;
-  while ((ch = getchar()) != '\n' && ch != EOF);
+  while (getchar() != '\n');
 }
 
 // Lee una cadena y devuelve la cadena con un maximo tam
@@ -114,13 +125,20 @@ void registrarCliente(PGconn *conn)
 
     inst = UnirInfoCliente(RFC,nombre,domicilio);
 
-    PGresult *res = PQexec(conn, inst);
-    
-    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-        do_exit(conn, res);
-    }
 
-    PQclear(res);
+    inst = UnirInfoCliente(RFC,nombre,domicilio);
+
+    printf("\n\n\n%s-%ld\n",RFC,strlen(RFC));
+    printf("%s-%ld\n",nombre,strlen(nombre));
+    printf("%s-%ld\n",domicilio[0],strlen(domicilio[0]));
+    printf("%s-%ld\n",domicilio[1],strlen(domicilio[1]));
+    printf("%s-%ld\n",domicilio[2],strlen(domicilio[2]));
+    printf("%s-%ld\n",domicilio[3],strlen(domicilio[3]));
+    printf("%s-%ld\n",domicilio[4],strlen(domicilio[4]));
+    printf("%s-%ld\n",email,strlen(email));;
+    printf("%s-%ld\n",inst,strlen(inst));
+
+    //do_something(conn,inst);
 
 }
 
