@@ -69,24 +69,33 @@ char * leerCad(int tam, char * msj)
 	return cad;
 }
 
+// 
 void registrarCliente(PGconn *conn)
 {
     char * RFC;
     char * nombre;
-    char * domicilio;
+    // Domicilio[Estado,Colonia,Calle,CP,Numero]
+    char * domicilio[5];
     char * email;
 
     RFC = leerCad(13,"Ingrese su RFC \n");
     nombre = leerCad(70,"Ingrese su Nombre \n");
-    domicilio = leerCad(70,"Ingrese su domicilio \n");
+    domicilio[0] = leerCad(70,"Ingrese su Estado \n");
+    domicilio[1] = leerCad(70,"Ingrese su Colonia \n");
+    domicilio[2] = leerCad(70,"Ingrese su Calle \n");
+    domicilio[3] = leerCad(5,"Ingrese su CodigoPostal \n");
+    domicilio[4] = leerCad(5,"Ingrese su Numero Oficial \n");
     email = leerCad(50,"Ingrese su email\n");
 
     printf("\n\n\n%s-%ld\n",RFC,strlen(RFC));
     printf("\n%s-%ld\n",nombre,strlen(nombre));
-    printf("\n%s-%ld\n",domicilio,strlen(domicilio));
+    printf("\n%s-%ld\n",domicilio[0],strlen(domicilio[0]));
+    printf("\n%s-%ld\n",domicilio[1],strlen(domicilio[1]));
+    printf("\n%s-%ld\n",domicilio[2],strlen(domicilio[2]));
+    printf("\n%s-%ld\n",domicilio[3],strlen(domicilio[3]));
+    printf("\n%s-%ld\n",domicilio[4],strlen(domicilio[4]));
     printf("\n%s-%ld\n",email,strlen(email));
 
-    /*
     PGresult *res = PQexec(conn, "DROP TABLE IF EXISTS Cars");
     
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
@@ -94,6 +103,5 @@ void registrarCliente(PGconn *conn)
     }
 
     PQclear(res);
-    */
 }
 

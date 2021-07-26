@@ -28,14 +28,14 @@ ColoniaCliente varchar(70) NOT NULL,
 CalleCliente varchar(70) NOT NULL,
 CPCliente int NOT NULL,
 NumeroCliente int NOT NULL,
-PRIMARY KEY (RFC)
+CONSTRAINT cliente_PK PRIMARY KEY (RFC)
 );
 
 CREATE TABLE email(
 Email varchar(50) NOT NULL,
 RFC varchar(13) NOT NULL,
-PRIMARY KEY (Email),
-FOREIGN KEY (RFC) REFERENCES cliente(RFC)
+CONSTRAINT email_PK PRIMARY KEY (Email),
+CONSTRAINT email_cliente_FK FOREIGN KEY (RFC) REFERENCES cliente(RFC) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE proveedor(
@@ -46,14 +46,14 @@ ColoniaProv varchar(70) NOT NULL,
 CalleProv varchar(70) NOT NULL,
 CPProv int NOT NULL,
 NumeroProv int NOT NULL,
-PRIMARY KEY (RazonSocial)
+CONSTRAINT proveedor_PK PRIMARY KEY (RazonSocial)
 );
 
 CREATE TABLE telefono(
 Telefono int NOT NULL,
 RazonSocial varchar(30) NOT NULL,
-PRIMARY KEY (Telefono),
-FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial)
+CONSTRAINT telefono_PK PRIMARY KEY (Telefono),
+CONSTRAINT telefono_proveedor_FK FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE inventario(
@@ -61,13 +61,13 @@ CodigoBarras int NOT NULL,
 PrecioCompra int NOT NULL,
 FechaCompra date NOT NULL,
 Stock int NOT NULL,
-PRIMARY KEY (CodigoBarras)
+CONSTRAINT inventario_PK PRIMARY KEY (CodigoBarras)
 );
 
 CREATE TABLE tipoproducto(
 IDTipoProd serial,
 TipoProducto varchar(30) NOT NULL,
-PRIMARY KEY (IDTipoProd)
+CONSTRAINT tipoproducto_PK PRIMARY KEY (IDTipoProd)
 );
 
 CREATE TABLE producto(
@@ -76,21 +76,21 @@ PrecioProd int NOT NULL,
 Marca varchar(15) NOT NULL,
 DescripcionProd varchar(30) NOT NULL,
 IDTipoProd int NOT NULL,
-PRIMARY KEY (CodigoBarras),
-FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras),
-FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd)
+CONSTRAINT producto_PK PRIMARY KEY (CodigoBarras),
+CONSTRAINT productoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT producto_tipoproducto_FK FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE tipoimpresion(
 IDTipoImpresion serial,
 TipoImpresion varchar(15) NOT NULL,
-PRIMARY KEY (IDTipoImpresion)
+CONSTRAINT tipoimpresion_PK PRIMARY KEY (IDTipoImpresion)
 );
 
 CREATE TABLE tamañohoja(
 IDTamaño serial,
 TamañoHoja varchar(15) NOT NULL,
-PRIMARY KEY (IDTamaño)
+CONSTRAINT tamañohoja_PK PRIMARY KEY (IDTamaño)
 );
 
 CREATE TABLE impresion(
@@ -98,30 +98,30 @@ IDTamaño int NOT NULL,
 IDTipoImpresion int NOT NULL,
 PrecioServ int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-PRIMARY KEY (IDTamaño,IDTipoImpresion),
-FOREIGN KEY (IDTipoImpresion) REFERENCES tipoimpresion (IDTipoImpresion),
-FOREIGN KEY (IDTamaño) REFERENCES tamañohoja (IDTamaño)
+CONSTRAINT impresion_PK PRIMARY KEY (IDTamaño,IDTipoImpresion),
+CONSTRAINT impresion_tipoimpresion_FK FOREIGN KEY (IDTipoImpresion) REFERENCES tipoimpresion (IDTipoImpresion),
+CONSTRAINT impresion_tamañohoja_FK FOREIGN KEY (IDTamaño) REFERENCES tamañohoja (IDTamaño) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE compañia(
 IDCompañia serial,
 Compañia varchar(30) NOT NULL,
-PRIMARY KEY (IDCompañia)
+CONSTRAINT compañia_PK PRIMARY KEY (IDCompañia)
 );
 
 CREATE TABLE preciorecarga(
 IDRecarga serial,
 PrecioRecarga int NOT NULL,
-PRIMARY KEY (IDRecarga)
+CONSTRAINT preciorecarga_PK PRIMARY KEY (IDRecarga)
 );
 
 CREATE TABLE recarga(
 IDCompañia int NOT NULL,
 IDRecarga int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-PRIMARY KEY (IDCompañia,IDRecarga),
-FOREIGN KEY (IDCompañia) REFERENCES compañia (IDCompañia),
-FOREIGN KEY (IDRecarga) REFERENCES  preciorecarga (IDRecarga)
+CONSTRAINT recarga_PK PRIMARY KEY (IDCompañia,IDRecarga),
+CONSTRAINT recarga_compañia_FK FOREIGN KEY (IDCompañia) REFERENCES compañia (IDCompañia) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT recarga_preciorecarga_FK FOREIGN KEY (IDRecarga) REFERENCES  preciorecarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE consumo(
@@ -167,4 +167,3 @@ SELECT * FROM compañia;
 SELECT * FROM preciorecarga;
 SELECT * FROM tipoimpresion;
 SELECT * FROM tamañohoja;
-
