@@ -6,7 +6,7 @@ void do_exit(PGconn *conn, PGresult *res)
     fprintf(stderr, "%s\n", PQerrorMessage(conn));    
     PQclear(res);
     PQfinish(conn);
-    
+
     exit(1);
 }
 
@@ -82,7 +82,7 @@ int esNumero(char * cadena)
     return 1;
 }
 
-// Unimos la informacion para la base de datos
+// Unimos la informacion del Cliente o Proveedor para la base de datos
 void UnirInfo(char **instruccion,char * clave, char * nombre, char ** domicilio,char * inicio)
 {
     *instruccion = (char*) realloc(*instruccion,sizeof(char)*370);
@@ -177,11 +177,6 @@ void registrarCliente(PGconn *conn)
     //do_something(conn,instEmail);
 }
 
-// Almacena los datos del cliente y los inserta en la tabla
-void registrarProducto(PGconn *conn)
-{
-}
-
 // Almacena los datos del proveedor y los inserta en la tabla
 void registrarProveedor(PGconn *conn)
 {
@@ -249,6 +244,100 @@ void registrarProveedor(PGconn *conn)
 
     //do_something(conn,inst);
     //do_something(conn,instTelefono);
+}
+
+// Unimos la informacion del producto para insertar en la tabla Producto
+void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVenta, char * marca, char * descripcion, char * idTipoProducto, char * inicio)
+{
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*115);
+
+    strcpy(*instruccion,inicio);
+    strcat(*instruccion,codigoBarras);
+    strcat(*instruccion,",");
+    strcat(*instruccion,precioVenta);
+    strcat(*instruccion,",'");
+    strcat(*instruccion,marca);
+    strcat(*instruccion,"','");
+    strcat(*instruccion,descripcion);
+    strcat(*instruccion,"',");
+    strcat(*instruccion,idTipoProducto);
+    strcat(*instruccion,")");
+
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
+}
+
+// Unimos la informacion del producto para insertar en la tabla Inventario
+void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio)
+{
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*75);
+
+    strcpy(*instruccion,inicio);
+    strcat(*instruccion,codigoBarras);
+    strcat(*instruccion,",");
+    strcat(*instruccion,precioCompra);
+    strcat(*instruccion,",");
+    strcat(*instruccion,fechaCompra);
+    strcat(*instruccion,",");
+    strcat(*instruccion,stock);
+    strcat(*instruccion,")");
+
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
+}
+
+// Almacena los datos del cliente y los inserta en la tabla
+void registrarProducto(PGconn *conn)
+{
+    char * codigoBarras = (char*) malloc(sizeof(char)*13);
+    char * precioCompra = (char*) malloc(sizeof(char)*11);
+    char * fechaCompra = (char*) malloc(sizeof(char)*11);
+    char * stock = (char*) malloc(sizeof(char)*7);
+
+    char * precioVenta = (char*) malloc(sizeof(char)*16);
+    char * marca = (char*) malloc(sizeof(char)*16);
+    char * descripcion = (char*) malloc(sizeof(char)*31);
+    char * idTipoProducto = (char*) malloc(sizeof(char)*4);
+
+    char iniInventario[] = "INSERT INTO inventario VALUES (";
+    char iniProducto[] = "INSERT INTO producto VALUES (";
+    char * instInventario;
+    char * instProducto;
+
+    do{
+        leerCadena(&codigoBarras,"Ingrese el Codigo de Barras\n",12);
+    }while(!esNumero(codigoBarras) || strlen(codigoBarras) != 12);
+    do{
+        leerCadena(&precioCompra,"Ingrese el Precio de Compra\n",10);
+    }while(!esNumero(precioCompra) || precioCompra[0] == '\n' );
+    do{
+        leerCadena(&fechaCompra,"Ingrese la fecha de compra dd-mm-aaa\n",10);
+    }while(fechaCompra[0] == '\n' );
+    do{
+        leerCadena(&stock,"Ingrese la Cantidad de Ejemplares en Bodega\n",6);
+    }while(!esNumero(stock) || stock[0] == '\n' );
+
+    do{
+        leerCadena(&precioVenta,"Ingrese el Precio de Venta\n",15);
+    }while(!esNumero(precioVenta) || precioVenta[0] == '\n' );
+    do{
+        leerCadena(&marca,"Ingrese la Marca del producto\n",15);
+    }while(marca[0] == '\n');
+    do
+    {
+        leerCadena(&descripcion,"Ingrese la Descripcion del producto\n",30);
+    } while (descripcion[0] == '\n');
+    do
+    {
+        leerCadena(&idTipoProducto,"Ingrese el id del Tipo de Producto\n",3);
+    } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n');
+    
+    unirInfoInventario(&instInventario,codigoBarras,precioCompra,fechaCompra,stock,iniInventario);
+    unirInfoProducto(&instProducto,codigoBarras,precioVenta,marca,descripcion,idTipoProducto,iniProducto);
+
+    printf("%s-%ld\n",instInventario,strlen(instInventario));
+    printf("%s-%ld\n",instProducto,strlen(instProducto));
+
+    //do_something(conn,instInventario);
+    //do_something(conn,instProducto);
 }
 
 // Realizamos compras

@@ -13,6 +13,6 @@ int main(){
     
     //registrarCliente(conn);
     //registrarProveedor(conn);
-    
+    //registrarProducto(conn);
     return 0;
 }

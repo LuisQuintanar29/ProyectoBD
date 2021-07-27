@@ -17,6 +17,8 @@ void vacia_buffer();
 void leerCadena(char ** cadena, char * msg, int MAXSIZE);
 void do_something(PGconn *conn, char * instruction);
 void UnirInfo(char **instruccion,char * clave, char * nombre, char ** domicilio,char * inicio);
+void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVenta, char * marca, char * descripcion, char * idTipoProducto, char * inicio);
+void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio);
 void registrarProducto(PGconn *conn);
 void registrarProveedor(PGconn *conn);
 void comprar(PGconn *conn);
