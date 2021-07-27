@@ -69,6 +69,17 @@ void leerCadena(char ** cadena, char * msg, int MAXSIZE)
     *cadena = (char*) realloc(*cadena,strlen(*cadena)*sizeof(char));
 }
 
+// Verifica si lo ingresado en la cadena es un numero
+int esNumero(char * cadena)
+{
+    for(size_t i = 0; i < strlen(cadena);i++)
+    {
+        if (cadena[i] < '0' || cadena[i] > '9')
+            return 0;
+    }
+    return 1;
+}
+
 // Unimos la informacion del cliente para la base de datos
 void UnirInfoCliente(char **instruccion,char * RFC, char * nombre, char ** domicilio)
 {
@@ -113,14 +124,39 @@ void registrarCliente(PGconn *conn)
     char * inst = (char*) malloc(sizeof(char));
     char * instEmail = (char*) malloc(sizeof(char)*98);
 
-    leerCadena(&RFC,"Ingrese su RFC \n",13);
-    leerCadena(&nombre,"Ingrese su Nombre \n",70);
-    leerCadena(&domicilio[0],"Ingrese su Estado \n",70);
-    leerCadena(&domicilio[1],"Ingrese su Colonia \n",70);
-    leerCadena(&domicilio[2],"Ingrese su Calle \n",70);
-    leerCadena(&domicilio[3],"Ingrese su CodigoPostal \n",5);
-    leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
-    leerCadena(&email,"Ingrese su email\n",50);
+    do
+    {
+        leerCadena(&RFC,"Ingrese su RFC \n",13);
+        if(strlen(RFC) != 13) printf("Ingrese un RFC valido de 13 caracteres\n");
+    }while(strlen(RFC) != 13);
+    do
+    {
+        leerCadena(&nombre,"Ingrese su Nombre \n",70);
+    } while (nombre[0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[0],"Ingrese su Estado \n",70);
+    } while (domicilio[0][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[1],"Ingrese su Colonia \n",70);
+    } while (domicilio[1][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[2],"Ingrese su Calle \n",70);
+    } while (domicilio[2][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[3],"Ingrese su CodigoPostal \n",5);
+    } while (!esNumero(domicilio[3]) || domicilio[3][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
+    } while (!esNumero(domicilio[4]) || domicilio[4][0] == '\n');
+    do
+    {
+        leerCadena(&email,"Ingrese su email\n",50);
+    } while (email[0] == '\n');
 
     UnirInfoCliente(&inst,RFC,nombre,domicilio);
 
@@ -135,5 +171,23 @@ void registrarCliente(PGconn *conn)
     printf("%s-%ld\n",instEmail,strlen(instEmail)+1);
 
     //do_something(conn,inst);
+    //do_something(conn,instEmail);
 }
 
+// Almacena los datos del cliente y los inserta en la tabla
+void registrarProducto(PGconn *conn)
+{
+
+}
+
+// Almacena los datos del proveedor y los inserta en la tabla
+void registrarProveedor(PGconn *conn)
+{
+
+}
+
+// Realizamos compras
+void comprar(PGconn *conn)
+{
+
+}

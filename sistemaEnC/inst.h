@@ -17,5 +17,8 @@ void vacia_buffer();
 void leerCadena(char ** cadena, char * msg, int MAXSIZE);
 void do_something(PGconn *conn, char * instruction);
 void UnirInfoCliente(char **instruccion,char * RFC, char * nombre, char ** domicilio);
+void registrarProducto(PGconn *conn);
+void registrarProveedor(PGconn *conn);
+void comprar(PGconn *conn);
 
 #endif

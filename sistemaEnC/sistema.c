@@ -11,16 +11,7 @@ int main(){
         exit(1);
     }
     
-    registrarCliente(conn);
+    //registrarCliente(conn);
     
-    /*
-    printSELECT(conn, "SELECT * FROM compañia;");
-    printSELECT(conn, "SELECT * FROM preciorecarga;");
-    printSELECT(conn, "SELECT * FROM tipoimpresion;");
-    printSELECT(conn, "SELECT * FROM tamañohoja;");
-    PQfinish(conn);
-    */
-
-   printf("SALE DE LA FUNCION");
     return 0;
 }
