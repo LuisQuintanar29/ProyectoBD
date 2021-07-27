@@ -60,83 +60,79 @@ void vacia_buffer()
 }
 
 // Lee una cadena y devuelve la cadena con un maximo tam
-char * leerCad(int tam, char * msj)
+void leerCadena(char ** cadena, char * msg, int MAXSIZE)
 {
-    char *cad = (char*) malloc(sizeof(char));
-	int i,j=0;
-
-    printf("%s",msj);
-	for(i=0;i<=j;i++)
-    {
-		char letra = getchar();
-		cad = (char*) realloc(cad,sizeof(char)*(j+2));
-		if(letra!='\n' && i < tam)
-        {
-			j++;
-		}
-		else
-        {
-			letra = '\0';
-		}
-		*(cad+i) = letra;
-	}
-    if (i > tam) vacia_buffer();
-	return cad;
+    printf("%s",msg);
+    fgets(*cadena,MAXSIZE+1,stdin);
+    strtok(*cadena,"\n");
+    vacia_buffer();
+    *cadena = (char*) realloc(*cadena,strlen(*cadena)*sizeof(char));
 }
 
-char * UnirInfoCliente(char * RFC, char * nombre, char ** domicilio)
+// Unimos la informacion del cliente para la base de datos
+void UnirInfoCliente(char **instruccion,char * RFC, char * nombre, char ** domicilio)
 {
     char inicio[] = "INSERT INTO cliente VALUES ('";
-    char * instruccion = (char*) malloc(sizeof(char)*30);
-    memcpy(instruccion,inicio,strlen(inicio));
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*350);
 
-    strcat(instruccion,RFC);
-    strcat(instruccion,"','");
-    strcat(instruccion,nombre);
-    strcat(instruccion,"','");
-    strcat(instruccion,domicilio[0]);
-    strcat(instruccion,"','");
-    strcat(instruccion,domicilio[1]);
-    strcat(instruccion,"','");
-    strcat(instruccion,domicilio[2]);
-    strcat(instruccion,"',");
-    strcat(instruccion,domicilio[3]);
-    strcat(instruccion,",");
-    strcat(instruccion,domicilio[4]);
-    strcat(instruccion,")");
+    strcpy(*instruccion,inicio);
+    strcat(*instruccion,RFC);
+    strcat(*instruccion,"','");
+    strcat(*instruccion,nombre);
+    strcat(*instruccion,"','");
+    strcat(*instruccion,domicilio[0]);
 
-    return instruccion;
+    strcat(*instruccion,"','");
+    strcat(*instruccion,domicilio[1]);
+    strcat(*instruccion,"','");
+    strcat(*instruccion,domicilio[2]);
+    strcat(*instruccion,"',");
+
+    strcat(*instruccion,domicilio[3]);
+    strcat(*instruccion,",");
+    strcat(*instruccion,domicilio[4]);
+    strcat(*instruccion,")");
+
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
 }
 
 // Almacena los datos del cliente y los inserta en la tabla
 void registrarCliente(PGconn *conn)
 {
-    char * RFC;
-    char * nombre;
-    // Domicilio[Estado,Colonia,Calle,CP,Numero]
+    char * RFC = (char*) malloc(sizeof(char)*14);
+    char * nombre = (char*) malloc(sizeof(char)*71);
+    char * email = (char*) malloc(sizeof(char)*51);
     char * domicilio[5];
-    char * email;
-    char * inst;
-    char * instEmail = (char*) malloc(sizeof(char)*28);
+    domicilio[0] = (char*) malloc(sizeof(char)*71);
+    domicilio[1] = (char*) malloc(sizeof(char)*71);
+    domicilio[2] = (char*) malloc(sizeof(char)*71);
+    domicilio[3] = (char*) malloc(sizeof(char)*6);
+    domicilio[4] = (char*) malloc(sizeof(char)*6);
 
-    RFC = leerCad(13,"Ingrese su RFC \n");
-    nombre = leerCad(70,"Ingrese su Nombre \n");
-    domicilio[0] = leerCad(70,"Ingrese su Estado \n");
-    domicilio[1] = leerCad(70,"Ingrese su Colonia \n");
-    domicilio[2] = leerCad(70,"Ingrese su Calle \n");
-    domicilio[3] = leerCad(5,"Ingrese su CodigoPostal \n");
-    domicilio[4] = leerCad(5,"Ingrese su Numero Oficial \n");
-    email = leerCad(50,"Ingrese su email\n");
+    char iniEmail[] = "INSERT INTO email VALUES ('";
+    char * inst = (char*) malloc(sizeof(char));
+    char * instEmail = (char*) malloc(sizeof(char)*98);
 
-    inst = UnirInfoCliente(RFC,nombre,domicilio);
+    leerCadena(&RFC,"Ingrese su RFC \n",13);
+    leerCadena(&nombre,"Ingrese su Nombre \n",70);
+    leerCadena(&domicilio[0],"Ingrese su Estado \n",70);
+    leerCadena(&domicilio[1],"Ingrese su Colonia \n",70);
+    leerCadena(&domicilio[2],"Ingrese su Calle \n",70);
+    leerCadena(&domicilio[3],"Ingrese su CodigoPostal \n",5);
+    leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
+    leerCadena(&email,"Ingrese su email\n",50);
 
-    memcpy(instEmail,"INSERT INTO email VALUES ('",28);
+    UnirInfoCliente(&inst,RFC,nombre,domicilio);
+
+    strcpy(instEmail,iniEmail);
     strcat(instEmail,email);
     strcat(instEmail,"','");
     strcat(instEmail,RFC);
     strcat(instEmail,"')");
-
-    printf("%s-%ld\n",instEmail,strlen(instEmail));
+    instEmail = (char*) realloc(instEmail,sizeof(char)*strlen(instEmail)+1);
+    
+    printf("%s-%ld\n",inst,strlen(inst));
+    printf("%s-%ld\n",instEmail,strlen(instEmail)+1);
 
     //do_something(conn,inst);
 }

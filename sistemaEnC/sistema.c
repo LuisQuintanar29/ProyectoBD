@@ -14,7 +14,6 @@ int main(){
     registrarCliente(conn);
     
     /*
-    printSELECT(conn, "SELECT * FROM tipoproducto;");
     printSELECT(conn, "SELECT * FROM compañia;");
     printSELECT(conn, "SELECT * FROM preciorecarga;");
     printSELECT(conn, "SELECT * FROM tipoimpresion;");
@@ -22,5 +21,6 @@ int main(){
     PQfinish(conn);
     */
 
+   printf("SALE DE LA FUNCION");
     return 0;
 }
