@@ -6,6 +6,7 @@ void do_exit(PGconn *conn, PGresult *res)
     fprintf(stderr, "%s\n", PQerrorMessage(conn));    
     PQclear(res);
     PQfinish(conn);
+    
     exit(1);
 }
 
@@ -26,6 +27,7 @@ void printSELECT(PGconn *conn, char * string)
 {
     int rows, columns;
     PGresult *res = PQexec(conn, string);
+
     if (PQresultStatus(res) != PGRES_TUPLES_OK) 
     {
         printf("No data retrieved\n");        
@@ -80,14 +82,13 @@ int esNumero(char * cadena)
     return 1;
 }
 
-// Unimos la informacion del cliente para la base de datos
-void UnirInfoCliente(char **instruccion,char * RFC, char * nombre, char ** domicilio)
+// Unimos la informacion para la base de datos
+void UnirInfo(char **instruccion,char * clave, char * nombre, char ** domicilio,char * inicio)
 {
-    char inicio[] = "INSERT INTO cliente VALUES ('";
-    *instruccion = (char*) realloc(*instruccion,sizeof(char)*350);
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*370);
 
     strcpy(*instruccion,inicio);
-    strcat(*instruccion,RFC);
+    strcat(*instruccion,clave);
     strcat(*instruccion,"','");
     strcat(*instruccion,nombre);
     strcat(*instruccion,"','");
@@ -113,6 +114,7 @@ void registrarCliente(PGconn *conn)
     char * RFC = (char*) malloc(sizeof(char)*14);
     char * nombre = (char*) malloc(sizeof(char)*71);
     char * email = (char*) malloc(sizeof(char)*51);
+    // domicilio = [Estado,Colonia,Calle,codigo Postal, Numero Oficial]
     char * domicilio[5];
     domicilio[0] = (char*) malloc(sizeof(char)*71);
     domicilio[1] = (char*) malloc(sizeof(char)*71);
@@ -121,6 +123,7 @@ void registrarCliente(PGconn *conn)
     domicilio[4] = (char*) malloc(sizeof(char)*6);
 
     char iniEmail[] = "INSERT INTO email VALUES ('";
+    char inicio[] = "INSERT INTO cliente VALUES ('";
     char * inst = (char*) malloc(sizeof(char));
     char * instEmail = (char*) malloc(sizeof(char)*98);
 
@@ -147,7 +150,7 @@ void registrarCliente(PGconn *conn)
     } while (domicilio[2][0] == '\n');
     do
     {
-        leerCadena(&domicilio[3],"Ingrese su CodigoPostal \n",5);
+        leerCadena(&domicilio[3],"Ingrese su Codigo Postal \n",5);
     } while (!esNumero(domicilio[3]) || domicilio[3][0] == '\n');
     do
     {
@@ -158,7 +161,7 @@ void registrarCliente(PGconn *conn)
         leerCadena(&email,"Ingrese su email\n",50);
     } while (email[0] == '\n');
 
-    UnirInfoCliente(&inst,RFC,nombre,domicilio);
+    UnirInfo(&inst,RFC,nombre,domicilio,inicio);
 
     strcpy(instEmail,iniEmail);
     strcat(instEmail,email);
@@ -168,7 +171,7 @@ void registrarCliente(PGconn *conn)
     instEmail = (char*) realloc(instEmail,sizeof(char)*strlen(instEmail)+1);
     
     printf("%s-%ld\n",inst,strlen(inst));
-    printf("%s-%ld\n",instEmail,strlen(instEmail)+1);
+    printf("%s-%ld\n",instEmail,strlen(instEmail));
 
     //do_something(conn,inst);
     //do_something(conn,instEmail);
@@ -177,13 +180,75 @@ void registrarCliente(PGconn *conn)
 // Almacena los datos del cliente y los inserta en la tabla
 void registrarProducto(PGconn *conn)
 {
-
 }
 
 // Almacena los datos del proveedor y los inserta en la tabla
 void registrarProveedor(PGconn *conn)
 {
+    char * razonSocial = (char*) malloc(sizeof(char)*31);
+    char * nombre = (char*) malloc(sizeof(char)*71);
+    // domicilio = [Estado,Colonia,Calle,codigo Postal, Numero Oficial]
+    char * domicilio[5];
+    domicilio[0] = (char*) malloc(sizeof(char)*71);
+    domicilio[1] = (char*) malloc(sizeof(char)*71);
+    domicilio[2] = (char*) malloc(sizeof(char)*71);
+    domicilio[3] = (char*) malloc(sizeof(char)*6);
+    domicilio[4] = (char*) malloc(sizeof(char)*6);
+    char * telefono = (char*) malloc(sizeof(char)*11);
 
+    char iniTelefono[] = "INSERT INTO telefono VALUES (";
+    char inicio[] = "INSERT INTO proveedor VALUES ('";
+    char * inst = (char*) malloc(sizeof(char));
+    char * instTelefono = (char*) malloc(sizeof(char)*75);
+
+    do
+    {
+        leerCadena(&razonSocial,"Ingrese su Razon Social\n",30);
+    }while(razonSocial[0] == '\n');
+    do
+    {
+        leerCadena(&nombre,"Ingrese su Nombre \n",70);
+    } while (nombre[0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[0],"Ingrese su Estado \n",70);
+    } while (domicilio[0][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[1],"Ingrese su Colonia \n",70);
+    } while (domicilio[1][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[2],"Ingrese su Calle \n",70);
+    } while (domicilio[2][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[3],"Ingrese su Codigo Postal \n",5);
+    } while (!esNumero(domicilio[3]) || domicilio[3][0] == '\n');
+    do
+    {
+        leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
+    } while (!esNumero(domicilio[4]) || domicilio[4][0] == '\n');
+    do
+    {
+        leerCadena(&telefono,"Ingrese su Telefono \n",10);
+    } while (strlen(telefono) != 10 || !esNumero(telefono));
+
+
+    UnirInfo(&inst,razonSocial,nombre,domicilio,inicio);
+
+    strcpy(instTelefono,iniTelefono);
+    strcat(instTelefono,telefono);
+    strcat(instTelefono,",'");
+    strcat(instTelefono,razonSocial);
+    strcat(instTelefono,"')");
+    instTelefono = (char*) realloc(instTelefono,sizeof(char)*strlen(instTelefono)+1);
+    
+    printf("%s-%ld\n",inst,strlen(inst));
+    printf("%s-%ld\n",instTelefono,strlen(instTelefono));
+
+    //do_something(conn,inst);
+    //do_something(conn,instTelefono);
 }
 
 // Realizamos compras

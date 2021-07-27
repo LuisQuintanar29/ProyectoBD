@@ -12,6 +12,7 @@ int main(){
     }
     
     //registrarCliente(conn);
+    //registrarProveedor(conn);
     
     return 0;
 }
