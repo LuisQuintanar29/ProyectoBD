@@ -99,7 +99,7 @@ CONSTRAINT recarga_PK PRIMARY KEY (IDRecarga)
 );
 
 CREATE TABLE consumo(
-NoVenta int NOT NULL,
+NoVenta serial,
 FechaVenta date NOT NULL,
 CantidadArticulo int NOT NULL,
 PrecioArticulo int NOT NULL,
@@ -107,6 +107,7 @@ CodigoBarras int,
 IDImpresion int,
 IDRecarga int,
 Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED,
+CONSTRAINT consumo_PK PRIMARY KEY (NoVenta),
 CONSTRAINT consumoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT consumo_Impresion_FK FOREIGN KEY (IDImpresion) REFERENCES impresion (IDImpresion) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT consumo_recarga_FK FOREIGN KEY (IDRecarga) REFERENCES recarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE
