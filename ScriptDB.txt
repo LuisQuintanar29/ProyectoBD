@@ -81,47 +81,21 @@ CONSTRAINT productoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES in
 CONSTRAINT producto_tipoproducto_FK FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE tipoimpresion(
-IDTipoImpresion serial,
-TipoImpresion varchar(15) NOT NULL,
-CONSTRAINT tipoimpresion_PK PRIMARY KEY (IDTipoImpresion)
-);
-
-CREATE TABLE tamañohoja(
-IDTamaño serial,
-TamañoHoja varchar(15) NOT NULL,
-CONSTRAINT tamañohoja_PK PRIMARY KEY (IDTamaño)
-);
-
 CREATE TABLE impresion(
-IDTamaño int NOT NULL,
-IDTipoImpresion int NOT NULL,
+IDImpresion serial,
+TamañoHoja varchar(15) NOT NULL,
+TipoImpresion varchar(15) NOT NULL,
 PrecioServ int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-CONSTRAINT impresion_PK PRIMARY KEY (IDTamaño,IDTipoImpresion),
-CONSTRAINT impresion_tipoimpresion_FK FOREIGN KEY (IDTipoImpresion) REFERENCES tipoimpresion (IDTipoImpresion),
-CONSTRAINT impresion_tamañohoja_FK FOREIGN KEY (IDTamaño) REFERENCES tamañohoja (IDTamaño) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE compañia(
-IDCompañia serial,
-Compañia varchar(30) NOT NULL,
-CONSTRAINT compañia_PK PRIMARY KEY (IDCompañia)
-);
-
-CREATE TABLE preciorecarga(
-IDRecarga serial,
-PrecioRecarga int NOT NULL,
-CONSTRAINT preciorecarga_PK PRIMARY KEY (IDRecarga)
+CONSTRAINT impresion_PK PRIMARY KEY (IDImpresion)
 );
 
 CREATE TABLE recarga(
-IDCompañia int NOT NULL,
-IDRecarga int NOT NULL,
+IDRecarga serial,
+Compañia varchar(30) NOT NULL,
+PrecioRecarga int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-CONSTRAINT recarga_PK PRIMARY KEY (IDCompañia,IDRecarga),
-CONSTRAINT recarga_compañia_FK FOREIGN KEY (IDCompañia) REFERENCES compañia (IDCompañia) ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT recarga_preciorecarga_FK FOREIGN KEY (IDRecarga) REFERENCES  preciorecarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT recarga_PK PRIMARY KEY (IDRecarga)
 );
 
 CREATE TABLE consumo(
@@ -129,41 +103,62 @@ NoVenta int NOT NULL,
 FechaVenta date NOT NULL,
 CantidadArticulo int NOT NULL,
 PrecioArticulo int NOT NULL,
-Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED
+CodigoBarras int,
+IDImpresion int,
+IDRecarga int,
+Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED,
+CONSTRAINT consumoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT consumo_Impresion_FK FOREIGN KEY (IDImpresion) REFERENCES impresion (IDImpresion) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT consumo_recarga_FK FOREIGN KEY (IDRecarga) REFERENCES recarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO tipoproducto (TipoProducto) VALUES ('Regalo');
 INSERT INTO tipoproducto (TipoProducto) VALUES ('Articulo de papeleria');
 
 
-INSERT INTO tipoimpresion (TipoImpresion) VALUES ('Blanco/Negro');
-INSERT INTO tipoimpresion (TipoImpresion) VALUES ('Color');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A0','Blanco/Negro',1,'Impresion A0 Blanco y Negro');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A0','Color',2,'Impresion A0 a Color');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A1','Blanco/Negro',2,'Impresion A1 Blanco y Negro');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A1','Color',3,'Impresion A1 a Color');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A2','Blanco/Negro',3,'Impresion A2 Blanco y Negro');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A2','Color',4,'Impresion A2 a Color');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A3','Blanco/Negro',4,'Impresion A3 Blanco y Negro');
+INSERT INTO impresion (TamañoHoja,TipoImpresion,PrecioServ,DescripcionServ) VALUES ('A3','Color',5,'Impresion A3 a Color');
 
 
-INSERT INTO tamañohoja (TamañoHoja) VALUES ('A0');
-INSERT INTO tamañohoja (TamañoHoja) VALUES ('A1');
-INSERT INTO tamañohoja (TamañoHoja) VALUES ('A2');
-INSERT INTO tamañohoja (TamañoHoja) VALUES ('A3');
-INSERT INTO tamañohoja (TamañoHoja) VALUES ('A4');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',10,'Recarga Movistar de 10 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',20,'Recarga Movistar de 20 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',30,'Recarga Movistar de 30 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',50,'Recarga Movistar de 50 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',100,'Recarga Movistar de 100 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',200,'Recarga Movistar de 200 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Movistar',500,'Recarga Movistar de 500 pesos');
 
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',10,'Recarga Telcel de 10 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',20,'Recarga Telcel de 20 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',30,'Recarga Telcel de 30 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',50,'Recarga Telcel de 50 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',100,'Recarga Telcel de 100 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',200,'Recarga Telcel de 200 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('Telcel',500,'Recarga Telcel de 500 pesos');
 
-INSERT INTO compañia (compañia) VALUES ('Movistar');
-INSERT INTO compañia (compañia) VALUES ('Telcel');
-INSERT INTO compañia (compañia) VALUES ('UNEFON');
-INSERT INTO compañia (compañia) VALUES ('AT&T');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',10,'Recarga UNEFON de 10 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',20,'Recarga UNEFON de 20 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',30,'Recarga UNEFON de 30 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',50,'Recarga UNEFON de 50 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',100,'Recarga UNEFON de 100 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',200,'Recarga UNEFON de 200 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('UNEFON',500,'Recarga UNEFON de 500 pesos');
 
-
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (10);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (20);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (30);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (50);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (100);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (200);
-INSERT INTO preciorecarga (PrecioRecarga) VALUES (500);
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',10,'Recarga AT&T de 10 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',20,'Recarga AT&T de 20 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',30,'Recarga AT&T de 30 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',50,'Recarga AT&T de 50 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',100,'Recarga AT&T de 100 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',200,'Recarga AT&T de 200 pesos');
+INSERT INTO recarga (Compañia,PrecioRecarga,DescripcionServ) VALUES ('AT&T',500,'Recarga AT&T de 500 pesos');
 
 
 SELECT * FROM tipoproducto;
-SELECT * FROM compañia;
-SELECT * FROM preciorecarga;
-SELECT * FROM tipoimpresion;
-SELECT * FROM tamañohoja;
+SELECT * FROM recarga;
+SELECT * FROM impresion;

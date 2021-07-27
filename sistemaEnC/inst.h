@@ -22,5 +22,6 @@ void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCo
 void registrarProducto(PGconn *conn);
 void registrarProveedor(PGconn *conn);
 void comprar(PGconn *conn);
+int obtenerTipoProducto(PGconn *conn);
 
 #endif

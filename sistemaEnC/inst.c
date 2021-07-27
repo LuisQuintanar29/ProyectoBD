@@ -284,6 +284,22 @@ void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCo
     *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
 }
 
+// Obtiene la cantidad de tipos de producto que existen
+int obtenerTipoProducto(PGconn *conn)
+{
+    PGresult *res = PQexec(conn, "SELECT * FROM tipoproducto;");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) 
+    {
+        printf("No data retrieved\n");        
+        PQclear(res);
+        do_exit(conn,res);
+    } 
+
+    int n = PQnfields(res);    
+    PQclear(res);
+    return n;
+}
+
 // Almacena los datos del cliente y los inserta en la tabla
 void registrarProducto(PGconn *conn)
 {
@@ -295,7 +311,7 @@ void registrarProducto(PGconn *conn)
     char * precioVenta = (char*) malloc(sizeof(char)*16);
     char * marca = (char*) malloc(sizeof(char)*16);
     char * descripcion = (char*) malloc(sizeof(char)*31);
-    char * idTipoProducto = (char*) malloc(sizeof(char)*4);
+    char * idTipoProducto = (char*) malloc(sizeof(char)*2);
 
     char iniInventario[] = "INSERT INTO inventario VALUES (";
     char iniProducto[] = "INSERT INTO producto VALUES (";
@@ -317,7 +333,7 @@ void registrarProducto(PGconn *conn)
 
     do{
         leerCadena(&precioVenta,"Ingrese el Precio de Venta\n",15);
-    }while(!esNumero(precioVenta) || precioVenta[0] == '\n' );
+    }while(!esNumero(precioVenta) || precioVenta[0] == '\n');
     do{
         leerCadena(&marca,"Ingrese la Marca del producto\n",15);
     }while(marca[0] == '\n');
@@ -327,8 +343,10 @@ void registrarProducto(PGconn *conn)
     } while (descripcion[0] == '\n');
     do
     {
-        leerCadena(&idTipoProducto,"Ingrese el id del Tipo de Producto\n",3);
-    } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n');
+        printf("\nid   Tipo de Producto\n");
+        printSELECT(conn,"SELECT * FROM tipoproducto;");
+        leerCadena(&idTipoProducto,"Ingrese el id del Tipo de Producto\n",1);
+    } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n'  || obtenerTipoProducto(conn) +48 < idTipoProducto[0] || idTipoProducto[0] < '1');
     
     unirInfoInventario(&instInventario,codigoBarras,precioCompra,fechaCompra,stock,iniInventario);
     unirInfoProducto(&instProducto,codigoBarras,precioVenta,marca,descripcion,idTipoProducto,iniProducto);
@@ -343,5 +361,5 @@ void registrarProducto(PGconn *conn)
 // Realizamos compras
 void comprar(PGconn *conn)
 {
-
+    
 }

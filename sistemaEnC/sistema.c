@@ -14,5 +14,7 @@ int main(){
     //registrarCliente(conn);
     //registrarProveedor(conn);
     //registrarProducto(conn);
+    comprar(conn);
+    
     return 0;
 }
