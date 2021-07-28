@@ -37,9 +37,17 @@ void printSELECT(PGconn *conn, char * string)
     
     rows = PQntuples(res);
     columns = PQnfields(res);
+
+    for (size_t i = 0; i < columns; i++)
+    {
+        printf("%24s",PQfname(res,i));
+    }
+    printf("\n");
+    
     
     for(int i=0; i<rows; i++)
     {
+        printf("|");
         for(int j = 0; j< columns;j++)
         {
             printf("%24s|", PQgetvalue(res, i, j));
@@ -374,18 +382,17 @@ void consumir(PGconn *conn)
 // 
 void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio )
 {
-    printSELECT(conn,"SELECT * FROM producto WHERE IDTipoProd=2;");
-    printSELECT(conn,"SELECT stock FROM inventario;");
+    printSELECT(conn,"SELECT * FROM view_compra_prod");
 }
 
 // 
 void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio )
 {
-
+    printSELECT(conn,"SELECT * FROM view_compra_reca");
 }
 
 // 
 void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio)
 {
-
+    printSELECT(conn,"SELECT * FROM view_compra_impr");
 }
