@@ -21,7 +21,10 @@ void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVen
 void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio);
 void registrarProducto(PGconn *conn);
 void registrarProveedor(PGconn *conn);
-void comprar(PGconn *conn);
+void consumir(PGconn *conn);
 int obtenerTipoProducto(PGconn *conn);
+void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio );
+void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio );
+void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio);
 
 #endif

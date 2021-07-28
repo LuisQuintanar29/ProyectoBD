@@ -42,7 +42,7 @@ void printSELECT(PGconn *conn, char * string)
     {
         for(int j = 0; j< columns;j++)
         {
-            printf("%s ", PQgetvalue(res, i, j));
+            printf("%24s|", PQgetvalue(res, i, j));
         }
         printf("\n");
     }    
@@ -173,8 +173,8 @@ void registrarCliente(PGconn *conn)
     printf("%s-%ld\n",inst,strlen(inst));
     printf("%s-%ld\n",instEmail,strlen(instEmail));
 
-    //do_something(conn,inst);
-    //do_something(conn,instEmail);
+    do_something(conn,inst);
+    do_something(conn,instEmail);
 }
 
 // Almacena los datos del proveedor y los inserta en la tabla
@@ -242,8 +242,8 @@ void registrarProveedor(PGconn *conn)
     printf("%s-%ld\n",inst,strlen(inst));
     printf("%s-%ld\n",instTelefono,strlen(instTelefono));
 
-    //do_something(conn,inst);
-    //do_something(conn,instTelefono);
+    do_something(conn,inst);
+    do_something(conn,instTelefono);
 }
 
 // Unimos la informacion del producto para insertar en la tabla Producto
@@ -275,9 +275,9 @@ void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCo
     strcat(*instruccion,codigoBarras);
     strcat(*instruccion,",");
     strcat(*instruccion,precioCompra);
-    strcat(*instruccion,",");
+    strcat(*instruccion,",'");
     strcat(*instruccion,fechaCompra);
-    strcat(*instruccion,",");
+    strcat(*instruccion,"',");
     strcat(*instruccion,stock);
     strcat(*instruccion,")");
 
@@ -354,12 +354,38 @@ void registrarProducto(PGconn *conn)
     printf("%s-%ld\n",instInventario,strlen(instInventario));
     printf("%s-%ld\n",instProducto,strlen(instProducto));
 
-    //do_something(conn,instInventario);
-    //do_something(conn,instProducto);
+    do_something(conn,instInventario);
+    do_something(conn,instProducto);
 }
 
 // Realizamos compras
-void comprar(PGconn *conn)
+void consumir(PGconn *conn)
 {
-    
+    char * fechaVenta = (char*) malloc(sizeof(char)*11);
+    char * cantidadArticulo = (char*) malloc(sizeof(char)*7);
+    char * precio = (char*) malloc(sizeof(char)*16);
+    char * codigoBarras = (char*) malloc(sizeof(char)*13);
+    char * idImpresion = (char*) malloc(sizeof(char)*3);
+    char * idRecarga = (char*) malloc(sizeof(char)*3);
+
+    consumirProducto(conn,&codigoBarras,&precio);
+}
+
+// 
+void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio )
+{
+    printSELECT(conn,"SELECT * FROM producto WHERE IDTipoProd=2;");
+    printSELECT(conn,"SELECT stock FROM inventario;");
+}
+
+// 
+void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio )
+{
+
+}
+
+// 
+void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio)
+{
+
 }
