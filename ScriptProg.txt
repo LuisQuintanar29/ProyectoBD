@@ -1,4 +1,4 @@
-CREATE VIEW view_compra_prod AS
+CREATE OR REPLACE VIEW view_compra_prod AS
 SELECT codigobarras AS codigo, 
 precioprod AS precio, marca,
 descripcionprod AS descripcion,
@@ -7,7 +7,7 @@ stock as inventario FROM producto
 INNER JOIN inventario USING (codigobarras)
 INNER JOIN tipoproducto USING(idTipoProd);
 
-CREATE VIEW view_compra_impr AS
+CREATE OR REPLACE VIEW view_compra_impr AS
 SELECT idImpresion AS id,
 TamañoHoja AS tamaño,
 TipoImpresion AS impresion,
@@ -15,21 +15,36 @@ PrecioServ AS precio,
 DescripcionServ AS descripcion
 FROM impresion;
 
-CREATE VIEW view_compra_reca AS
+CREATE OR REPLACE VIEW view_compra_reca AS
 SELECT idRecarga AS id,
 Compañia, PrecioRecarga AS precio,
 DescripcionServ AS descripcion
 FROM recarga;
 
-CREATE VIEW view_inventario AS
+CREATE OR REPLACE VIEW view_inventario AS
 SELECT codigoBarras AS codigo,
-precioCompra, precioprod AS precioVenta,
-(precioprod-precioCompra) AS utilidad,fechaCompra,stock
+precioCompra AS precio_compra, precioprod AS precio_Venta,
+(precioprod-precioCompra) AS utilidad,fechaCompra AS fecha_compra,stock AS inventario
 FROM inventario
 INNER JOIN producto USING (codigoBarras);
+
+CREATE OR REPLACE VIEW view_proveedor AS
+SELECT RazonSocial AS Razon_Social, NombreProv AS nombre,
+EstadoProv AS Estado, ColoniaProv AS colonia,
+CalleProv AS Calle, CPProv AS Codigo_postal,
+NumeroProv AS numero, Telefono FROM proveedor
+INNER JOIN telefono USING (RazonSocial);
+
+CREATE OR REPLACE VIEW view_cliente AS
+SELECT RFC, NombreCliente AS nombre, EstadoCliente AS Estado,
+ColoniaCliente as cliente, CalleCliente AS Calle, CPCliente AS Codigo_postal,
+NumeroCliente as numero, email FROM cliente
+INNER JOIN email USING (RFC);
 
 
 SELECT * FROM view_inventario;
 SELECT * FROM view_compra_prod;
 SELECT * FROM view_compra_impr;
 SELECT * FROM view_compra_reca;
+SELECT * FROM view_proveedor ORDER BY Razon_Social;
+SELECT * FROM view_cliente ORDER BY RFC;

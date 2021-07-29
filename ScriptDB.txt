@@ -45,7 +45,7 @@ CONSTRAINT NumeroProv_CK CHECK (NumeroProv > 0 )
 );
 
 CREATE TABLE telefono(
-Telefono int NOT NULL,
+Telefono bigint NOT NULL,
 RazonSocial varchar(30) NOT NULL,
 CONSTRAINT telefono_PK PRIMARY KEY (Telefono),
 CONSTRAINT telefono_proveedor_FK FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -102,8 +102,9 @@ CONSTRAINT PrecioRecarga_CK CHECK (PrecioRecarga > 0)
 );
 
 CREATE TABLE consumo(
+inicio varchar(5) NOT NULL DEFAULT 'VENT-',
 NoVenta serial,
-FechaVenta date NOT NULL,
+FechaVenta date NOT NULL DEFAULT CURRENT_DATE,
 CantidadArticulo int NOT NULL,
 PrecioArticulo int NOT NULL,
 CodigoBarras bigint,
