@@ -56,39 +56,3 @@ INSERT INTO producto VALUES (131313131313,10,'Apica','Pluma de gel',2);
 INSERT INTO producto VALUES (210987654321,5,'Bic','Pluma negra punto fino',2);
 INSERT INTO producto VALUES (321654789021,12,'Dixon','Pegamento en Barra',2);
 
-CREATE VIEW view_compra_prod AS
-SELECT codigobarras AS codigo, 
-precioprod AS precio, marca,
-descripcionprod AS descripcion,
-tipoproducto AS categorias,
-stock as inventario FROM producto 
-INNER JOIN inventario USING (codigobarras)
-INNER JOIN tipoproducto USING(idTipoProd);
-
-CREATE VIEW view_compra_impr AS
-SELECT idImpresion AS id,
-TamañoHoja AS tamaño,
-TipoImpresion AS impresion,
-PrecioServ AS precio,
-DescripcionServ AS descripcion
-FROM impresion;
-
-CREATE VIEW view_compra_reca AS
-SELECT idRecarga AS id,
-Compañia, PrecioRecarga AS precio,
-DescripcionServ AS descripcion
-FROM recarga;
-
-CREATE VIEW view_inventario AS
-SELECT codigoBarras AS codigo,
-precioCompra, precioprod AS precioVenta,
-(precioprod-precioCompra) AS utilidad,fechaCompra,stock
-FROM inventario
-INNER JOIN producto USING (codigoBarras);
-
-
-
-SELECT * FROM view_inventario;
-SELECT * FROM view_compra_prod;
-SELECT * FROM view_compra_impr;
-SELECT * FROM view_compra_reca;

@@ -19,7 +19,9 @@ ColoniaCliente varchar(70) NOT NULL,
 CalleCliente varchar(70) NOT NULL,
 CPCliente int NOT NULL,
 NumeroCliente int NOT NULL,
-CONSTRAINT cliente_PK PRIMARY KEY (RFC)
+CONSTRAINT cliente_PK PRIMARY KEY (RFC),
+CONSTRAINT CPCliente_CK CHECK (CPCliente > 0 ),
+CONSTRAINT NumeroCliente_CK CHECK (NumeroCliente > 0 )
 );
 
 CREATE TABLE email(
@@ -37,14 +39,17 @@ ColoniaProv varchar(70) NOT NULL,
 CalleProv varchar(70) NOT NULL,
 CPProv int NOT NULL,
 NumeroProv int NOT NULL,
-CONSTRAINT proveedor_PK PRIMARY KEY (RazonSocial)
+CONSTRAINT proveedor_PK PRIMARY KEY (RazonSocial),
+CONSTRAINT CPProv_CK CHECK (CPProv > 0 ),
+CONSTRAINT NumeroProv_CK CHECK (NumeroProv > 0 )
 );
 
 CREATE TABLE telefono(
 Telefono int NOT NULL,
 RazonSocial varchar(30) NOT NULL,
 CONSTRAINT telefono_PK PRIMARY KEY (Telefono),
-CONSTRAINT telefono_proveedor_FK FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial) ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT telefono_proveedor_FK FOREIGN KEY (RazonSocial) REFERENCES proveedor (RazonSocial) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT telefono_CK CHECK (telefono > 0)
 );
 
 CREATE TABLE inventario(
@@ -52,7 +57,10 @@ CodigoBarras bigint NOT NULL,
 PrecioCompra int NOT NULL,
 FechaCompra date NOT NULL,
 Stock int NOT NULL,
-CONSTRAINT inventario_PK PRIMARY KEY (CodigoBarras)
+CONSTRAINT inventario_PK PRIMARY KEY (CodigoBarras),
+CONSTRAINT stock_CK CHECK (stock > 0),
+CONSTRAINT precioCompra_CK CHECK (precioCompra > 0),
+CONSTRAINT codigoBarras_CK CHECK (codigoBarras > 0)
 );
 
 CREATE TABLE tipoproducto(
@@ -69,7 +77,9 @@ DescripcionProd varchar(30) NOT NULL,
 IDTipoProd int NOT NULL,
 CONSTRAINT producto_PK PRIMARY KEY (CodigoBarras),
 CONSTRAINT productoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras) ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT producto_tipoproducto_FK FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd) ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT producto_tipoproducto_FK FOREIGN KEY (IDTipoProd) REFERENCES tipoproducto (IDTipoProd) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT PrecioProd_CK CHECK (precioprod > 0),
+CONSTRAINT IDTipoProd_CK CHECK (idTipoProd > 0)
 );
 
 CREATE TABLE impresion(
@@ -78,7 +88,8 @@ TamañoHoja varchar(15) NOT NULL,
 TipoImpresion varchar(15) NOT NULL,
 PrecioServ int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-CONSTRAINT impresion_PK PRIMARY KEY (IDImpresion)
+CONSTRAINT impresion_PK PRIMARY KEY (IDImpresion),
+CONSTRAINT PrecioServ_CK CHECK (PrecioServ > 0)
 );
 
 CREATE TABLE recarga(
@@ -86,7 +97,8 @@ IDRecarga serial,
 Compañia varchar(30) NOT NULL,
 PrecioRecarga int NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
-CONSTRAINT recarga_PK PRIMARY KEY (IDRecarga)
+CONSTRAINT recarga_PK PRIMARY KEY (IDRecarga),
+CONSTRAINT PrecioRecarga_CK CHECK (PrecioRecarga > 0)
 );
 
 CREATE TABLE consumo(
@@ -101,5 +113,7 @@ Total int GENERATED ALWAYS AS (CantidadArticulo*PrecioArticulo) STORED,
 CONSTRAINT consumo_PK PRIMARY KEY (NoVenta),
 CONSTRAINT consumoCodBar_inventario_FK FOREIGN KEY (CodigoBarras) REFERENCES inventario (CodigoBarras) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT consumo_Impresion_FK FOREIGN KEY (IDImpresion) REFERENCES impresion (IDImpresion) ON DELETE CASCADE ON UPDATE CASCADE,
-CONSTRAINT consumo_recarga_FK FOREIGN KEY (IDRecarga) REFERENCES recarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT consumo_recarga_FK FOREIGN KEY (IDRecarga) REFERENCES recarga (IDRecarga) ON DELETE CASCADE ON UPDATE CASCADE,
+CONSTRAINT CantidadArticulo_CK CHECK (CantidadArticulo > 0),
+CONSTRAINT PrecioArticulo_CK CHECK (PrecioArticulo > 0)
 );
