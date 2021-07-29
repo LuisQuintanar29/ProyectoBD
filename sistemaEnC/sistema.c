@@ -4,8 +4,8 @@ int main(){
     
     PGconn *conn = PQconnectdb("user=admin password=admin dbname=papeleria");
 
-    if (PQstatus(conn) == CONNECTION_BAD) {
-        
+    if (PQstatus(conn) == CONNECTION_BAD) 
+    {    
         fprintf(stderr, "Connection to database failed: %s\n",PQerrorMessage(conn));
         PQfinish(conn);
         exit(1);

@@ -10,28 +10,29 @@
 #include <libpq-fe.h>
 #include <math.h>
 
-void do_exit(PGconn *conn, PGresult *res);
-void printSELECT(PGconn *conn, char * string);
-void registrarCliente(PGconn *conn);
+int menuInicio();
+int menuConsumo();
+int potencia(int x, int y);
+int esNumero(char * cadena);
+int StringToInt(char * numero);
+int obtenerNumeroFilas(PGconn *conn,char * cad);
+int esNumeroMenor( char * numero1, char * numero2 );
+int existeCodigoBarras(PGconn *conn, char ** codigoBarras);
 void vacia_buffer();
-void leerCadena(char ** cadena, char * msg, int MAXSIZE);
-void do_something(PGconn *conn, char * instruction);
-void UnirInfo(char **instruccion,char * clave, char * nombre, char ** domicilio,char * inicio);
-void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVenta, char * marca, char * descripcion, char * idTipoProducto, char * inicio);
-void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio);
+void consumir(PGconn *conn);
+void registrarCliente(PGconn *conn);
 void registrarProducto(PGconn *conn);
 void registrarProveedor(PGconn *conn);
-int obtenerNumeroFilas(PGconn *conn,char * cad);
-char ** obtenElementos(PGconn *conn,char * cad);
-int existeCodigoBarras(PGconn *conn, char ** codigoBarras);
-int esNumeroMenor( char * numero1, char * numero2 );
-int StringToInt(char * numero);
-int potencia(int x, int y);
-int menuConsumo();
-int menuInicio();
-void consumir(PGconn *conn);
-void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo );
+void do_exit(PGconn *conn, PGresult *res);
+void printSELECT(PGconn *conn, char * string);
+void do_something(PGconn *conn, char * instruction);
+void leerCadena(char ** cadena, char * msg, int MAXSIZE);
+void UnirInfo(char **instruccion,char * clave, char * nombre, char ** domicilio,char * inicio);
 void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio, char ** cantidadArticulo);
+void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo );
 void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio, char ** cantidadArticulo);
+void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio);
+void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVenta, char * marca, char * descripcion, char * idTipoProducto, char * inicio);
+char ** obtenElementos(PGconn *conn,char * cad);
 
 #endif
