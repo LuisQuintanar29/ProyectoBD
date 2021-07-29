@@ -10,11 +10,27 @@ int main(){
         PQfinish(conn);
         exit(1);
     }
-    
-    //registrarCliente(conn);
-    //registrarProveedor(conn);
-    //registrarProducto(conn);
-    consumir(conn);
+    switch (menuInicio())
+    {
+    case 1:
+        registrarCliente(conn);
+        break;
+    case 2:
+        registrarProveedor(conn);
+        break;
+    case 3:
+        registrarProducto(conn);
+        break;
+    case 4:
+        consumir(conn);
+        break;
+    case 5:
+        printSELECT(conn,"SELECT * FROM view_inventario");
+        break;
+    default:
+        printSELECT(conn,"SELECT * FROM consumo");
+        break;
+    }
     
     return 0;
 }

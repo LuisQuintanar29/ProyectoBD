@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <libpq-fe.h>
-
+#include <math.h>
 
 void do_exit(PGconn *conn, PGresult *res);
 void printSELECT(PGconn *conn, char * string);
@@ -25,9 +25,13 @@ int obtenerNumeroFilas(PGconn *conn,char * cad);
 char ** obtenElementos(PGconn *conn,char * cad);
 int existeCodigoBarras(PGconn *conn, char ** codigoBarras);
 int esNumeroMenor( char * numero1, char * numero2 );
+int StringToInt(char * numero);
+int potencia(int x, int y);
+int menuConsumo();
+int menuInicio();
 void consumir(PGconn *conn);
 void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo );
-void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio );
-void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio);
+void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio, char ** cantidadArticulo);
+void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio, char ** cantidadArticulo);
 
 #endif

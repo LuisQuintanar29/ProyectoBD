@@ -47,10 +47,9 @@ void printSELECT(PGconn *conn, char * string)
     
     for(int i=0; i<rows; i++)
     {
-        printf("|");
         for(int j = 0; j< columns;j++)
         {
-            printf("%24s|", PQgetvalue(res, i, j));
+            printf("|%24s", PQgetvalue(res, i, j));
         }
         printf("\n");
     }    
@@ -408,30 +407,15 @@ int existeCodigoBarras(PGconn *conn, char ** codigoBarras)
     return 0;
 }
 
-// Realizamos compras
-void consumir(PGconn *conn)
+// Devuelve el valor x^y
+int potencia(int x, int y)
 {
-    char * fechaVenta = (char*) malloc(sizeof(char)*11);
-    char * cantidadArticulo = (char*) malloc(sizeof(char)*7);
-    char * precio = (char*) malloc(sizeof(char)*16);
-    char * codigoBarras = (char*) malloc(sizeof(char)*13);
-    char * idImpresion = (char*) malloc(sizeof(char)*3);
-    char * idRecarga = (char*) malloc(sizeof(char)*3);
-
-    consumirProducto(conn,&codigoBarras,&precio,&cantidadArticulo);
-    char inst[60] = "SELECT * FROM view_compra_prod WHERE codigo = ";
-    strcat(inst,codigoBarras);
-
-    char inicio[200] = "INSERT INTO CONSUMO (FechaVenta,CantidadArticulo,PrecioArticulo,CodigoBarras) VALUES (CURRENT_DATE,";
-    strcat(inicio,cantidadArticulo);
-    strcat(inicio,",");
-    strcat(inicio,precio);
-    strcat(inicio,",");
-    strcat(inicio,codigoBarras);
-    strcat(inicio,")");
-
-    //do_something(conn,inicio);
-
+    int z = 1;
+    for (size_t i = 0; i < y; i++)
+    {
+        z *= x;
+    }
+    return z;
 }
 
 // Verifica si numero1 es menor que numero2
@@ -449,7 +433,18 @@ int esNumeroMenor( char * numero1, char * numero2 )
     return 0;
 }
 
-// 
+//Convierte una cadena de caracteres a entero
+int StringToInt(char * numero)
+{
+    int num = 0;
+    for (size_t i = 0; i < strlen(numero); i++)
+    {
+        num += (numero[i]-48)*potencia(10,strlen(numero)-i-1);
+    }
+    return num;
+}
+
+// Muestra los productos y lee la eleccion del usuario
 void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo )
 {
     printSELECT(conn,"SELECT * FROM view_compra_prod");
@@ -473,14 +468,128 @@ void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char **
     
 }
 
-// 
-void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio )
+// Despliega el menu de compra al usuario
+int menuConsumo()
 {
-    printSELECT(conn,"SELECT * FROM view_compra_reca");
+    int eleccion,opciones = 3;
+    do
+    {
+        printf("Que desea realizar?\n");
+        printf("\t [1] Compra articulo de papeleria/regalo\n");
+        printf("\t [2] Realizar recargas\n");
+        printf("\t [3] Impresiones\n");
+        scanf("%d",&eleccion);
+    } while (eleccion <=0 || eleccion > opciones);
+    return eleccion;
 }
 
-// 
-void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio)
+// Despliega el menu de inicio
+int menuInicio()
+{
+    int eleccion,opciones = 6;
+    do
+    {
+        printf("Que desea realizar?\n");
+        printf("\t [1] Registrar Cliente\n");
+        printf("\t [2] Registrar Proveedor\n");
+        printf("\t [3] Registrar Producto\n");
+        printf("\t [4] Realizar Compra\n");
+        printf("\t [5] Mostrar Inventario\n");
+        printf("\t [6] Mostrar Compras\n");
+        scanf("%d",&eleccion);
+    } while (eleccion <=0 || eleccion > opciones);
+    return eleccion;
+}
+
+// Realizamos compras
+void consumir(PGconn *conn)
+{
+    char * cantidadArticulo = (char*) malloc(sizeof(char)*7);
+    char * precio = (char*) malloc(sizeof(char)*16);
+    char * codigoBarras = (char*) malloc(sizeof(char)*13);
+    char * idImpresion = (char*) malloc(sizeof(char)*3);
+    char * idRecarga = (char*) malloc(sizeof(char)*3);
+    char inicio[200];
+
+    switch ( menuConsumo() )
+    {
+    case 1:
+        consumirProducto(conn,&codigoBarras,&precio,&cantidadArticulo);
+        char inst[60] = "SELECT * FROM view_compra_prod WHERE codigo = ";
+        strcat(inst,codigoBarras);
+
+        strcpy(inicio,"INSERT INTO CONSUMO (FechaVenta,CantidadArticulo,PrecioArticulo,CodigoBarras) VALUES (CURRENT_DATE,");
+        strcat(inicio,cantidadArticulo);
+        strcat(inicio,",");
+        strcat(inicio,precio);
+        strcat(inicio,",");
+        strcat(inicio,codigoBarras);
+        strcat(inicio,")");
+
+        do_something(conn,inicio);
+        break;
+    case 2:
+        consumirRecarga(conn,&idRecarga,&precio,&cantidadArticulo);
+        strcpy(inicio,"INSERT INTO CONSUMO (FechaVenta,CantidadArticulo,PrecioArticulo,idRecarga) VALUES (CURRENT_DATE,");
+        strcat(inicio,cantidadArticulo);
+        strcat(inicio,",");
+        strcat(inicio,precio);
+        strcat(inicio,",");
+        strcat(inicio,idRecarga);
+        strcat(inicio,")");
+
+        do_something(conn,inicio);
+        break;
+    default:
+       consumirImpresion(conn,&idImpresion,&precio,&cantidadArticulo);
+        strcpy(inicio,"INSERT INTO CONSUMO (FechaVenta,CantidadArticulo,PrecioArticulo,idImpresion) VALUES (CURRENT_DATE,");
+        strcat(inicio,cantidadArticulo);
+        strcat(inicio,",");
+        strcat(inicio,precio);
+        strcat(inicio,",");
+        strcat(inicio,idImpresion);
+        strcat(inicio,")");
+
+        do_something(conn,inicio);
+        break;
+    }
+}
+
+// Muestra las recargas disponibles y lee la eleccion del usuario
+void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio, char ** cantidadArticulo)
+{
+    printSELECT(conn,"SELECT * FROM view_compra_reca");
+    do
+    {
+        leerCadena(idRecarga,"Ingrese el id de la recarga a realizar\n",2);
+    } while(!esNumero(*idRecarga) || StringToInt(*idRecarga) > obtenerNumeroFilas(conn,"SELECT id FROM view_compra_reca") || StringToInt(*idRecarga) <=0 );
+
+    char inst[70] = "SELECT precio FROM view_compra_reca WHERE id = ";
+    strcat(inst,*idRecarga);
+    *precio = obtenElementos(conn,inst)[0];
+    do
+    {
+        leerCadena(cantidadArticulo,"Ingrese la Cantidad de recargas a realizar\n",7);
+    } while (!esNumero(*cantidadArticulo));
+}
+
+// Muestra las impresiones disponibles y lee la eleccion del usuario
+void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio, char ** cantidadArticulo)
 {
     printSELECT(conn,"SELECT * FROM view_compra_impr");
+    do
+    {
+        leerCadena(idImpresion,"Ingrese el id de la recarga a realizar\n",2);
+    } while(!esNumero(*idImpresion) || StringToInt(*idImpresion) > obtenerNumeroFilas(conn,"SELECT id FROM view_compra_impr") || StringToInt(*idImpresion) <=0 );
+
+    char inst[70] = "SELECT precio FROM view_compra_impr WHERE id = ";
+    strcat(inst,*idImpresion);
+    *precio = obtenElementos(conn,inst)[0];
+     do
+    {
+        leerCadena(cantidadArticulo,"Ingrese la Cantidad de Impresiones a realizar\n",7);
+    } while (!esNumero(*cantidadArticulo));
+
 }
+
+
