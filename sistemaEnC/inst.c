@@ -292,10 +292,10 @@ void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCo
     *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
 }
 
-// Obtiene la cantidad de tipos de producto que existen
-int obtenerTipoProducto(PGconn *conn)
+// Obtiene la cantidad de filas que existen
+int obtenerNumeroFilas(PGconn *conn,char * cad)
 {
-    PGresult *res = PQexec(conn, "SELECT * FROM tipoproducto;");
+    PGresult *res = PQexec(conn,cad);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) 
     {
         printf("No data retrieved\n");        
@@ -303,7 +303,7 @@ int obtenerTipoProducto(PGconn *conn)
         do_exit(conn,res);
     } 
 
-    int n = PQnfields(res);    
+    int n = PQntuples(res);    
     PQclear(res);
     return n;
 }
@@ -354,7 +354,7 @@ void registrarProducto(PGconn *conn)
         printf("\nid   Tipo de Producto\n");
         printSELECT(conn,"SELECT * FROM tipoproducto;");
         leerCadena(&idTipoProducto,"Ingrese el id del Tipo de Producto\n",1);
-    } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n'  || obtenerTipoProducto(conn) +48 < idTipoProducto[0] || idTipoProducto[0] < '1');
+    } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n'  || obtenerNumeroFilas(conn,"SELECT * FROM tipoproducto;") +48 < idTipoProducto[0] || idTipoProducto[0] < '1');
     
     unirInfoInventario(&instInventario,codigoBarras,precioCompra,fechaCompra,stock,iniInventario);
     unirInfoProducto(&instProducto,codigoBarras,precioVenta,marca,descripcion,idTipoProducto,iniProducto);
@@ -364,6 +364,48 @@ void registrarProducto(PGconn *conn)
 
     do_something(conn,instInventario);
     do_something(conn,instProducto);
+}
+
+// Obtiene las cadenas de caracteres de los codigos de barras
+char ** obtenElementos(PGconn *conn,char * cad)
+{
+    int n;
+    char ** elementos;
+    PGresult *res = PQexec(conn,cad);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) 
+    {
+        printf("No data retrieved\n");        
+        PQclear(res);
+        do_exit(conn,res);
+    } 
+
+    n = PQntuples(res);
+    elementos = (char**) malloc(sizeof(char*)*n);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        elementos[i]= (char*) malloc(sizeof(char)*strlen(PQgetvalue(res,i,0))+1);
+        strcpy(elementos[i],PQgetvalue(res,i,0));
+    }
+    
+    PQclear(res);
+    return elementos;
+}
+
+// Verifica la existencia del codigo de barras
+int existeCodigoBarras(PGconn *conn, char ** codigoBarras)
+{
+    char ** codigos = obtenElementos(conn,"SELECT codigobarras FROM inventario;");
+
+    for (int i = 0; i < obtenerNumeroFilas(conn,"SELECT codigobarras FROM inventario;"); i++)
+    {
+        if( strcmp(codigos[i],*codigoBarras) == 0 )
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 // Realizamos compras
@@ -376,13 +418,59 @@ void consumir(PGconn *conn)
     char * idImpresion = (char*) malloc(sizeof(char)*3);
     char * idRecarga = (char*) malloc(sizeof(char)*3);
 
-    consumirProducto(conn,&codigoBarras,&precio);
+    consumirProducto(conn,&codigoBarras,&precio,&cantidadArticulo);
+    char inst[60] = "SELECT * FROM view_compra_prod WHERE codigo = ";
+    strcat(inst,codigoBarras);
+
+    char inicio[200] = "INSERT INTO CONSUMO (FechaVenta,CantidadArticulo,PrecioArticulo,CodigoBarras) VALUES (CURRENT_DATE,";
+    strcat(inicio,cantidadArticulo);
+    strcat(inicio,",");
+    strcat(inicio,precio);
+    strcat(inicio,",");
+    strcat(inicio,codigoBarras);
+    strcat(inicio,")");
+
+    //do_something(conn,inicio);
+
+}
+
+// Verifica si numero1 es menor que numero2
+int esNumeroMenor( char * numero1, char * numero2 )
+{
+    if( strlen(numero1) < strlen(numero2) ) return 1;
+    if( strlen(numero1) > strlen(numero2) ) return 0;
+
+    for (size_t i = 0; i < strlen(numero1); i++)
+    {
+        if( numero1[i] < numero2[i] ) return 1;
+        if( numero1[i] > numero2[i] ) return 0;
+    }
+
+    return 0;
 }
 
 // 
-void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio )
+void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo )
 {
     printSELECT(conn,"SELECT * FROM view_compra_prod");
+    do{
+        leerCadena(codigoBarras,"Ingrese el Codigo de Barras del producto en existencia\n",12);
+    }while(!esNumero(*codigoBarras) || strlen(*codigoBarras) != 12 || !existeCodigoBarras(conn,codigoBarras));
+
+
+    char inst[70] = "SELECT precio FROM view_compra_prod WHERE codigo = ";
+    strcat(inst,*codigoBarras);
+    *precio = obtenElementos(conn,inst)[0];
+
+
+    strcpy(inst,"SELECT inventario FROM view_compra_prod WHERE codigo = ");
+    strcat(inst,*codigoBarras);
+
+    do
+    {
+        leerCadena(cantidadArticulo,"Ingrese la Cantidad de Articulos que desea\n",7);
+    } while (!esNumero(*cantidadArticulo) || !esNumeroMenor(*cantidadArticulo,obtenElementos(conn,inst)[0]));
+    
 }
 
 // 
