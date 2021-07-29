@@ -3,7 +3,7 @@
 // Despliega el menu de inicio
 int menuInicio()
 {
-    int eleccion,opciones = 6;
+    int eleccion,opciones = 8;
     do
     {
         printf("Que desea realizar?\n");
@@ -13,7 +13,10 @@ int menuInicio()
         printf("\t [4] Realizar Compra\n");
         printf("\t [5] Mostrar Inventario\n");
         printf("\t [6] Mostrar Compras\n");
+        printf("\t [7] Mostrar Clientes\n");
+        printf("\t [8] Mostrar Proveedores\n");
         scanf("%d",&eleccion);
+        vacia_buffer();
     } while (eleccion <=0 || eleccion > opciones);
     return eleccion;
 }

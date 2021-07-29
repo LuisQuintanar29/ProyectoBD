@@ -27,8 +27,14 @@ int main(){
     case 5:
         printSELECT(conn,"SELECT * FROM view_inventario");
         break;
-    default:
+    case 6:
         printSELECT(conn,"SELECT * FROM consumo");
+        break;
+    case 7:
+        printSELECT(conn,"SELECT * FROM view_cliente ORDER BY RFC");
+        break;
+    case 8:
+        printSELECT(conn,"SELECT * FROM view_proveedor ORDER BY Razon_Social");
         break;
     }
     
