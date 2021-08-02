@@ -102,7 +102,6 @@ CONSTRAINT PrecioRecarga_CK CHECK (PrecioRecarga > 0)
 );
 
 CREATE TABLE consumo(
-inicio varchar(5) NOT NULL DEFAULT 'VENT-',
 NoVenta serial,
 FechaVenta date NOT NULL DEFAULT CURRENT_DATE,
 CantidadArticulo int NOT NULL,

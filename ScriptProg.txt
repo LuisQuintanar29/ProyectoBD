@@ -42,6 +42,21 @@ NumeroCliente as numero, email FROM cliente
 INNER JOIN email USING (RFC);
 
 
+CREATE OR REPLACE VIEW view_compra AS
+SELECT NoVenta, fechaVenta as fecha, cantidadArticulo as cantidad,
+precioArticulo as precio, codigoBarras as Codigo,
+(TamañoHoja,TipoImpresion) as impresion,
+(Compañia, PrecioRecarga) as recarga FROM consumo
+LEFT OUTER JOIN impresion ON consumo.idImpresion = impresion.idImpresion
+LEFT JOIN recarga ON consumo.idRecarga = recarga.idRecarga;
+
+SELECT NoVenta, fechaVenta as fecha, cantidadArticulo as cantidad,
+precioArticulo as precio,total,
+(SELECT (Compañia,PrecioRecarga) FROM recarga as r WHERE c.idRecarga = r.idRecarga) as recarga,
+(SELECT (TamañoHoja,TipoImpresion) FROM impresion as i WHERE c.idImpresion = i.idImpresion) as impresion,
+(SELECT (codigoBarras,marca,descripcionprod) FROM producto as p WHERE c.codigoBarras = p.codigoBarras) as producto
+FROM consumo as c ORDER BY fecha;
+
 SELECT * FROM view_inventario;
 SELECT * FROM view_compra_prod;
 SELECT * FROM view_compra_impr;

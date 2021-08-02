@@ -28,7 +28,12 @@ int main(){
         printSELECT(conn,"SELECT * FROM view_inventario");
         break;
     case 6:
-        printSELECT(conn,"SELECT * FROM consumo");
+        printSELECT(conn,"SELECT NoVenta, fechaVenta as fecha, cantidadArticulo as cantidad,"
+                        "precioArticulo as precio,total,"
+                        "(SELECT (Compañia,PrecioRecarga) FROM recarga as r WHERE c.idRecarga = r.idRecarga) as recarga,"
+                        "(SELECT (TamañoHoja,TipoImpresion) FROM impresion as i WHERE c.idImpresion = i.idImpresion) as impresion,"
+                        "(SELECT (codigoBarras,marca,descripcionprod) FROM producto as p WHERE c.codigoBarras = p.codigoBarras) as producto "
+                        " FROM consumo as c ORDER BY fecha;");
         break;
     case 7:
         printSELECT(conn,"SELECT * FROM view_cliente ORDER BY RFC");
