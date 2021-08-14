@@ -1,3 +1,6 @@
+CREATE INDEX codigoBarras on inventario(codigoBarras);
+
+
 CREATE OR REPLACE VIEW view_compra_prod AS
 SELECT codigobarras AS codigo, 
 precioprod AS precio, marca,
@@ -75,7 +78,6 @@ $$
     END;
 $$
 LANGUAGE 'plpgsql';
-
 
 CREATE TRIGGER consumo_trigger
 AFTER INSERT ON consumo
