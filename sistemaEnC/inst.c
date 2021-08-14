@@ -74,6 +74,22 @@ int potencia(int x, int y)
 }
 
 // Verifica si lo ingresado en la cadena es un numero
+int esPrecio(char * cadena)
+{
+    int punto = 0;
+    for(size_t i = 0; i < strlen(cadena);i++)
+    {
+        if (punto > 1) return 0;
+        if(cadena[i] == '.') punto ++;
+        else
+            if (cadena[i] < '0' || cadena[i] > '9')
+                return 0;
+            
+    }
+    return 1;
+}
+
+// Verifica si lo ingresado en la cadena es un numero
 int esNumero(char * cadena)
 {
     for(size_t i = 0; i < strlen(cadena);i++)
@@ -307,7 +323,7 @@ void registrarCliente(PGconn *conn)
 void registrarProducto(PGconn *conn)
 {
     char * codigoBarras = (char*) malloc(sizeof(char)*13);
-    char * precioCompra = (char*) malloc(sizeof(char)*11);
+    char * precioCompra = (char*) malloc(sizeof(char)*16);
     char * fechaCompra = (char*) malloc(sizeof(char)*11);
     char * stock = (char*) malloc(sizeof(char)*7);
 
@@ -318,15 +334,15 @@ void registrarProducto(PGconn *conn)
 
     char iniInventario[] = "INSERT INTO inventario VALUES (";
     char iniProducto[] = "INSERT INTO producto VALUES (";
-    char * instInventario;
-    char * instProducto;
+    char * instInventario = (char*) malloc(sizeof(char)*16);
+    char * instProducto = (char*) malloc(sizeof(char)*16);
 
     do{
         leerCadena(&codigoBarras,"Ingrese el Codigo de Barras\n",12);
     }while(!esNumero(codigoBarras) || strlen(codigoBarras) != 12);
     do{
         leerCadena(&precioCompra,"Ingrese el Precio de Compra\n",10);
-    }while(!esNumero(precioCompra) || precioCompra[0] == '\n' );
+    }while(!esPrecio(precioCompra) || precioCompra[0] == '\n' );
     do{
         leerCadena(&fechaCompra,"Ingrese la fecha de compra dd-mm-aaa\n",10);
     }while(fechaCompra[0] == '\n' || !esFecha(fechaCompra));
@@ -336,7 +352,7 @@ void registrarProducto(PGconn *conn)
 
     do{
         leerCadena(&precioVenta,"Ingrese el Precio de Venta\n",15);
-    }while(!esNumero(precioVenta) || precioVenta[0] == '\n');
+    }while(!esPrecio(precioVenta) || precioVenta[0] == '\n');
     do{
         leerCadena(&marca,"Ingrese la Marca del producto\n",15);
     }while(marca[0] == '\n');
@@ -350,8 +366,9 @@ void registrarProducto(PGconn *conn)
         printSELECT(conn,"SELECT * FROM tipoproducto;");
         leerCadena(&idTipoProducto,"Ingrese el id del Tipo de Producto\n",1);
     } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n'  || obtenerNumeroFilas(conn,"SELECT * FROM tipoproducto;") +48 < idTipoProducto[0] || idTipoProducto[0] < '1');
-    
+    printf("b\n");
     unirInfoInventario(&instInventario,codigoBarras,precioCompra,fechaCompra,stock,iniInventario);
+    printf("%s\n",instInventario);
     unirInfoProducto(&instProducto,codigoBarras,precioVenta,marca,descripcion,idTipoProducto,iniProducto);
 
     printf("%s-%ld\n",instInventario,strlen(instInventario));
@@ -590,7 +607,7 @@ void consumirImpresion(PGconn *conn, char ** idImpresion, char ** precio, char *
 // Unimos la informacion del producto para insertar en la tabla Inventario
 void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCompra, char * fechaCompra, char * stock, char * inicio)
 {
-    *instruccion = (char*) realloc(*instruccion,sizeof(char)*75);
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*180);
 
     strcpy(*instruccion,inicio);
     strcat(*instruccion,codigoBarras);
@@ -602,13 +619,13 @@ void unirInfoInventario(char ** instruccion,char * codigoBarras, char * precioCo
     strcat(*instruccion,stock);
     strcat(*instruccion,")");
 
-    *instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
+    //*instruccion = (char*) realloc(*instruccion,sizeof(char)*strlen(*instruccion));
 }
 
 // Unimos la informacion del producto para insertar en la tabla Producto
 void unirInfoProducto(char ** instruccion, char * codigoBarras, char * precioVenta, char * marca, char * descripcion, char * idTipoProducto, char * inicio)
 {
-    *instruccion = (char*) realloc(*instruccion,sizeof(char)*115);
+    *instruccion = (char*) realloc(*instruccion,sizeof(char)*150);
 
     strcpy(*instruccion,inicio);
     strcat(*instruccion,codigoBarras);

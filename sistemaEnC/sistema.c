@@ -11,25 +11,22 @@ int main(){
         PQfinish(conn);
         exit(1);
     }
+
     while (1)
     {
         switch (menuInicio())
         {
         case 1:
             registrarCliente(conn);
-            do_something(conn,"commit;");
             break;
         case 2:
             registrarProveedor(conn);
-            do_something(conn,"commit;");
             break;
         case 3:
             registrarProducto(conn);
-            do_something(conn,"commit;");
             break;
         case 4:
             consumir(conn);
-            do_something(conn,"commit;");
             break;
         case 5:
             printSELECT(conn,"SELECT * FROM view_inventario");

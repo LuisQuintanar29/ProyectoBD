@@ -14,6 +14,7 @@ int menuInicio();
 int menuConsumo();
 int esFecha(char * fecha);
 int potencia(int x, int y);
+int esPrecio(char * cadena);
 int esNumero(char * cadena);
 int StringToInt(char * numero);
 int obtenerNumeroFilas(PGconn *conn,char * cad);

@@ -56,7 +56,7 @@ CONSTRAINT telefono_CK CHECK (telefono > 0)
 
 CREATE TABLE inventario(
 CodigoBarras bigint NOT NULL,
-PrecioCompra int NOT NULL,
+PrecioCompra numeric(8,2) NOT NULL,
 FechaCompra date NOT NULL,
 Stock int NOT NULL,
 CONSTRAINT inventario_PK PRIMARY KEY (CodigoBarras),
@@ -73,7 +73,7 @@ CONSTRAINT tipoproducto_PK PRIMARY KEY (IDTipoProd)
 
 CREATE TABLE producto(
 CodigoBarras bigint NOT NULL,
-PrecioProd int NOT NULL,
+PrecioProd numeric(8,2) NOT NULL,
 Marca varchar(15) NOT NULL,
 DescripcionProd varchar(30) NOT NULL,
 IDTipoProd int NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE impresion(
 IDImpresion serial,
 TamañoHoja varchar(15) NOT NULL,
 TipoImpresion varchar(15) NOT NULL,
-PrecioServ int NOT NULL,
+PrecioServ numeric(4,2) NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
 CONSTRAINT impresion_PK PRIMARY KEY (IDImpresion),
 CONSTRAINT PrecioServ_CK CHECK (PrecioServ > 0)
@@ -97,7 +97,7 @@ CONSTRAINT PrecioServ_CK CHECK (PrecioServ > 0)
 CREATE TABLE recarga(
 IDRecarga serial,
 Compañia varchar(30) NOT NULL,
-PrecioRecarga int NOT NULL,
+PrecioRecarga numeric(8,2) NOT NULL,
 DescripcionServ varchar(30) NOT NULL,
 CONSTRAINT recarga_PK PRIMARY KEY (IDRecarga),
 CONSTRAINT PrecioRecarga_CK CHECK (PrecioRecarga > 0)
@@ -107,7 +107,7 @@ CREATE TABLE consumo(
 NoVenta serial,
 FechaVenta date NOT NULL DEFAULT CURRENT_DATE,
 CantidadArticulo int NOT NULL,
-PrecioArticulo int NOT NULL,
+PrecioArticulo numeric(8,2) NOT NULL,
 CodigoBarras bigint,
 IDImpresion int,
 IDRecarga int,
