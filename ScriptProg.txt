@@ -41,21 +41,45 @@ ColoniaCliente as cliente, CalleCliente AS Calle, CPCliente AS Codigo_postal,
 NumeroCliente as numero, email FROM cliente
 INNER JOIN email USING (RFC);
 
-
 CREATE OR REPLACE VIEW view_compra AS
-SELECT NoVenta, fechaVenta as fecha, cantidadArticulo as cantidad,
-precioArticulo as precio, codigoBarras as Codigo,
-(TamañoHoja,TipoImpresion) as impresion,
-(Compañia, PrecioRecarga) as recarga FROM consumo
-LEFT OUTER JOIN impresion ON consumo.idImpresion = impresion.idImpresion
-LEFT JOIN recarga ON consumo.idRecarga = recarga.idRecarga;
-
-SELECT NoVenta, fechaVenta as fecha, cantidadArticulo as cantidad,
+SELECT ('VENT-00'||NoVenta) as venta,
+fechaVenta as fecha, cantidadArticulo as cantidad,
 precioArticulo as precio,total,
-(SELECT (Compañia,PrecioRecarga) FROM recarga as r WHERE c.idRecarga = r.idRecarga) as recarga,
-(SELECT (TamañoHoja,TipoImpresion) FROM impresion as i WHERE c.idImpresion = i.idImpresion) as impresion,
-(SELECT (codigoBarras,marca,descripcionprod) FROM producto as p WHERE c.codigoBarras = p.codigoBarras) as producto
-FROM consumo as c ORDER BY fecha;
+(Compañia||'-'||PrecioRecarga) as recarga ,
+(TamañoHoja||'-'||TipoImpresion) as impresion,
+(descripcionprod||'-'||marca) as producto
+FROM consumo as c
+LEFT JOIN impresion as i ON c.idImpresion = i.idImpresion
+LEFT JOIN producto as p ON c.codigoBarras = p.codigoBarras
+LEFT JOIN recarga as r ON c.idRecarga = r.idRecarga;
+
+
+CREATE OR REPLACE FUNCTION consumo_trigger_func()
+RETURNS trigger AS
+$$
+    DECLARE
+        inv_stock int;
+    BEGIN
+        SELECT INTO inv_stock stock FROM inventario WHERE codigoBarras = NEW.CodigoBarras;
+        IF (inv_stock - NEW.CantidadArticulo <= 0)  THEN
+            RAISE EXCEPTION 'No es posible realizar la compra. Sin suficientes articulos en inventario';
+        ELSE
+            IF (inv_stock - NEW.CantidadArticulo < 3) THEN
+                RAISE NOTICE 'Quedan menos de tres articulos en inventario';
+            END IF;
+            UPDATE inventario set stock=(inventario.stock - NEW.CantidadArticulo) 
+            WHERE codigoBarras=NEW.codigoBarras; 
+        END IF;
+    RETURN NULL;
+    END;
+$$
+LANGUAGE 'plpgsql';
+
+
+CREATE TRIGGER consumo_trigger
+AFTER INSERT ON consumo
+FOR EACH ROW
+EXECUTE PROCEDURE consumo_trigger_func();
 
 SELECT * FROM view_inventario;
 SELECT * FROM view_compra_prod;
@@ -63,3 +87,4 @@ SELECT * FROM view_compra_impr;
 SELECT * FROM view_compra_reca;
 SELECT * FROM view_proveedor ORDER BY Razon_Social;
 SELECT * FROM view_cliente ORDER BY RFC;
+

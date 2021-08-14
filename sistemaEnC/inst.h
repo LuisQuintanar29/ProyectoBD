@@ -12,14 +12,15 @@
 
 int menuInicio();
 int menuConsumo();
+int esFecha(char * fecha);
 int potencia(int x, int y);
 int esNumero(char * cadena);
 int StringToInt(char * numero);
 int obtenerNumeroFilas(PGconn *conn,char * cad);
-int esNumeroMenor( char * numero1, char * numero2 );
 int existeCodigoBarras(PGconn *conn, char ** codigoBarras);
 void vacia_buffer();
 void consumir(PGconn *conn);
+void mostrarCompras(PGconn *conn);
 void registrarCliente(PGconn *conn);
 void registrarProducto(PGconn *conn);
 void registrarProveedor(PGconn *conn);

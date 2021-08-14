@@ -3,7 +3,7 @@
 // Despliega el menu de inicio
 int menuInicio()
 {
-    int eleccion,opciones = 8;
+    int eleccion,opciones = 9;
     do
     {
         printf("Que desea realizar?\n");
@@ -15,6 +15,7 @@ int menuInicio()
         printf("\t [6] Mostrar Compras\n");
         printf("\t [7] Mostrar Clientes\n");
         printf("\t [8] Mostrar Proveedores\n");
+        printf("\t [9] Salir\n");
         scanf("%d",&eleccion);
         vacia_buffer();
     } while (eleccion <=0 || eleccion > opciones);
@@ -34,6 +35,31 @@ int menuConsumo()
         scanf("%d",&eleccion);
     } while (eleccion <=0 || eleccion > opciones);
     return eleccion;
+}
+
+// Devuelve true si es fecha
+int esFecha(char * fecha)
+{
+    char * f = malloc(sizeof(char)*11);
+    char delimitador[] = "-\n";
+    char *token = malloc(sizeof(char)*5);
+    int i = 0;
+
+    strcpy(f,fecha);
+    token = strtok(f, delimitador);
+    
+    if(token != NULL){
+        while(token != NULL){
+            printf("Token: %s\n", token);
+            if(!esNumero(token)) return 0;
+            if((i==0  || i==1  )&& strlen(token) != 2 ) return 0;
+            else if(i==2 && strlen(token) != 4 ) return 0;
+            token = strtok(NULL, delimitador);
+            i++;
+        }
+    }
+    if(i != 3) return 0;
+    return 1;
 }
 
 // Devuelve el valor x^y
@@ -85,25 +111,11 @@ int obtenerNumeroFilas(PGconn *conn,char * cad)
     return n;
 }
 
-// Verifica si numero1 es menor que numero2
-int esNumeroMenor( char * numero1, char * numero2 )
-{
-    if( strlen(numero1) < strlen(numero2) ) return 1;
-    if( strlen(numero1) > strlen(numero2) ) return 0;
-
-    for (size_t i = 0; i < strlen(numero1); i++)
-    {
-        if( numero1[i] < numero2[i] ) return 1;
-        if( numero1[i] > numero2[i] ) return 0;
-    }
-    return 0;
-}
-
 // Verifica la existencia del codigo de barras
 int existeCodigoBarras(PGconn *conn, char ** codigoBarras)
 {
-    char ** codigos = obtenElementos(conn,"SELECT codigobarras FROM inventario;");
-    for (int i = 0; i < obtenerNumeroFilas(conn,"SELECT codigobarras FROM inventario;"); i++)
+    char ** codigos = obtenElementos(conn,"SELECT codigobarras FROM inventario WHERE stock > 1;");
+    for (int i = 0; i < obtenerNumeroFilas(conn,"SELECT codigobarras FROM inventario WHERE stock > 1;"); i++)
     {
         if( strcmp(codigos[i],*codigoBarras) == 0 )
             return 1;
@@ -134,6 +146,11 @@ void consumir(PGconn *conn)
     switch ( menuConsumo() )
     {
     case 1:
+        if(!obtenerNumeroFilas(conn,"SELECT codigobarras FROM inventario WHERE stock > 1;"))
+        {
+            printf("NO HAY ELEMENTOS DISPONIBLES. VERIFIQUE SU INVENTARIO\n");
+            return;
+        }
         consumirProducto(conn,&codigoBarras,&precio,&cantidadArticulo);
         char inst[60] = "SELECT * FROM view_compra_prod WHERE codigo = ";
         strcat(inst,codigoBarras);
@@ -171,6 +188,48 @@ void consumir(PGconn *conn)
         strcat(inicio,")");
 
         do_something(conn,inicio);
+        break;
+    }
+}
+
+// Muestra las comprar
+void mostrarCompras(PGconn *conn)
+{
+    int opcion;
+    char * fecha = (char*) malloc(sizeof(char)*11);
+    char inst[55] = "SELECT * FROM view_compra WHERE fecha = '";
+    char inst2[100] = "SELECT * FROM view_compra WHERE fecha BETWEEN '";
+    printf("\t [1] Mostar todas las compras\n");
+    printf("\t [2] Mostar compras de una fecha\n");
+    printf("\t [3] Mostar compras en un periodo\n");
+    scanf("%i",&opcion);
+    switch (opcion)
+    {
+    case 1:
+        printSELECT(conn,"SELECT * FROM view_compra;");   
+    break;
+    case 2:
+        do{
+            leerCadena(&fecha,"Ingrese la fecha a mostrar dd-mm-aaa\n",10);
+        }while(fecha[0] == '\n' || !esFecha(fecha));
+        strcat(inst,fecha);
+        strcat(inst,"'");
+        printSELECT(conn,inst);   
+    break;
+    case 3:
+        do{
+            leerCadena(&fecha,"Ingrese la primera fecha dd-mm-aaa\n",10);
+        }while(fecha[0] == '\n' || !esFecha(fecha));
+        strcat(inst2,fecha);
+        strcat(inst2,"' AND '");
+        do{
+            leerCadena(&fecha,"Ingrese la segunda fecha dd-mm-aaa\n",10);
+        }while(fecha[0] == '\n' || !esFecha(fecha));
+        strcat(inst2,fecha);
+        strcat(inst2,"';");
+        printSELECT(conn,inst2);   
+    break;
+    default:
         break;
     }
 }
@@ -270,7 +329,7 @@ void registrarProducto(PGconn *conn)
     }while(!esNumero(precioCompra) || precioCompra[0] == '\n' );
     do{
         leerCadena(&fechaCompra,"Ingrese la fecha de compra dd-mm-aaa\n",10);
-    }while(fechaCompra[0] == '\n' );
+    }while(fechaCompra[0] == '\n' || !esFecha(fechaCompra));
     do{
         leerCadena(&stock,"Ingrese la Cantidad de Ejemplares en Bodega\n",6);
     }while(!esNumero(stock) || stock[0] == '\n' );
@@ -399,7 +458,7 @@ void printSELECT(PGconn *conn, char * string)
 
     for (size_t i = 0; i < columns; i++)
     {
-        printf("%24s",PQfname(res,i));
+        printf("%17s",PQfname(res,i));
     }
     printf("\n");
     
@@ -408,7 +467,7 @@ void printSELECT(PGconn *conn, char * string)
     {
         for(int j = 0; j< columns;j++)
         {
-            printf("|%24s", PQgetvalue(res, i, j));
+            printf("|%17s", PQgetvalue(res, i, j));
         }
         printf("\n");
     }    
@@ -486,13 +545,13 @@ void consumirRecarga(PGconn *conn, char **idRecarga, char ** precio, char ** can
 // Muestra los productos y lee la eleccion del usuario
 void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char ** cantidadArticulo )
 {
-    printSELECT(conn,"SELECT * FROM view_compra_prod");
+    printSELECT(conn,"SELECT * FROM view_compra_prod WHERE inventario > 1;");
     do{
         leerCadena(codigoBarras,"Ingrese el Codigo de Barras del producto en existencia\n",12);
     }while(!esNumero(*codigoBarras) || strlen(*codigoBarras) != 12 || !existeCodigoBarras(conn,codigoBarras));
 
 
-    char inst[70] = "SELECT precio FROM view_compra_prod WHERE codigo = ";
+    char inst[120] = "SELECT precio FROM view_compra_prod WHERE codigo = ";
     strcat(inst,*codigoBarras);
     *precio = obtenElementos(conn,inst)[0];
 
@@ -503,7 +562,9 @@ void consumirProducto(PGconn *conn, char **codigoBarras, char ** precio, char **
     do
     {
         leerCadena(cantidadArticulo,"Ingrese la Cantidad de Articulos que desea\n",7);
-    } while (!esNumero(*cantidadArticulo) || !esNumeroMenor(*cantidadArticulo,obtenElementos(conn,inst)[0]));
+        if(StringToInt(*cantidadArticulo) >= StringToInt(obtenElementos(conn,inst)[0]))
+            printf("Articulos en inventario insuficientes. Seleccione otra cantidad\n");
+    } while (!esNumero(*cantidadArticulo) || StringToInt(*cantidadArticulo) >= StringToInt(obtenElementos(conn,inst)[0]) || StringToInt(*cantidadArticulo) == 0);
     
 }
 
