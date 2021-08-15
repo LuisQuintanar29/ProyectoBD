@@ -84,10 +84,12 @@ AFTER INSERT ON consumo
 FOR EACH ROW
 EXECUTE PROCEDURE consumo_trigger_func();
 
-SELECT * FROM view_inventario;
-SELECT * FROM view_compra_prod;
 SELECT * FROM view_compra_impr;
+SELECT * FROM view_compra_prod;
 SELECT * FROM view_compra_reca;
+SELECT * FROM view_inventario;
 SELECT * FROM view_proveedor ORDER BY Razon_Social;
 SELECT * FROM view_cliente ORDER BY RFC;
+SELECT * FROM view_compra;
+
 

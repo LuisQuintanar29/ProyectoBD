@@ -41,6 +41,7 @@ int main(){
             printSELECT(conn,"SELECT * FROM view_proveedor ORDER BY Razon_Social");
             break;
         case 9:
+            PQfinish(conn);
             return 0;
             break;
         }

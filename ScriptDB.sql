@@ -119,3 +119,5 @@ CONSTRAINT consumo_recarga_FK FOREIGN KEY (IDRecarga) REFERENCES recarga (IDReca
 CONSTRAINT CantidadArticulo_CK CHECK (CantidadArticulo > 0),
 CONSTRAINT PrecioArticulo_CK CHECK (PrecioArticulo > 0)
 );
+
+

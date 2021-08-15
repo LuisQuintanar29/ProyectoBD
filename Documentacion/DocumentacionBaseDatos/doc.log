@@ -1,0 +1,762 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.5.20)  14 AUG 2021 23:57
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**doc.tex
+(./doc.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-01-09> xparse <2020-03-03>
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+)
+\c@part=\count177
+\c@section=\count178
+\c@subsection=\count179
+\c@subsubsection=\count180
+\c@paragraph=\count181
+\c@subparagraph=\count182
+\c@figure=\count183
+\c@table=\count184
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count185
+\Gm@cntv=\count186
+\c@Gm@tempcnt=\count187
+\Gm@bindingoffset=\dimen139
+\Gm@wd@mp=\dimen140
+\Gm@odd@mp=\dimen141
+\Gm@even@mp=\dimen142
+\Gm@layoutwidth=\dimen143
+\Gm@layoutheight=\dimen144
+\Gm@layouthoffset=\dimen145
+\Gm@layoutvoffset=\dimen146
+\Gm@dimlist=\toks16
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
+)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2021/01/26 3.53 The Babel package
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2021/01/26 3.53 Babel common definitions
+\babel@savecnt=\count188
+\U@D=\dimen147
+\l@babelnohyphens=\language86
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+)
+\bbl@dirlevel=\count189
+
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
+\es@quottoks=\toks19
+\es@quotdepth=\count190
+Package babel Info: Making " an active character on input line 561.
+Package babel Info: Making . an active character on input line 662.
+Package babel Info: Making < an active character on input line 707.
+Package babel Info: Making > an active character on input line 707.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/01/29 v2.7 Span multiple rows of a table
+\multirow@colwidth=\skip49
+\multirow@cntb=\count191
+\multirow@dima=\skip50
+\bigstrutjot=\dimen148
+)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen149
+\lightrulewidth=\dimen150
+\cmidrulewidth=\dimen151
+\belowrulesep=\dimen152
+\belowbottomsep=\dimen153
+\aboverulesep=\dimen154
+\abovetopsep=\dimen155
+\cmidrulesep=\dimen156
+\cmidrulekern=\dimen157
+\defaultaddspace=\dimen158
+\@cmidla=\count192
+\@cmidlb=\count193
+\@aboverulesep=\dimen159
+\@belowrulesep=\dimen160
+\@thisruleclass=\count194
+\@lastruleclass=\count195
+\@thisrulewidth=\dimen161
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2020/08/30 v1.4c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
+)
+(/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf.sty
+Package: epstopdf 2020-01-24 v2.11 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count196
+\float@exts=\toks20
+\float@box=\box47
+\@float@everytoks=\toks21
+\@floatcapt=\box48
+)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+Package: fancyhdr 2021/01/04 v4.0 Extensive control of page headers and footers
+
+\f@nch@headwidth=\skip51
+\f@nch@O@elh=\skip52
+\f@nch@O@erh=\skip53
+\f@nch@O@olh=\skip54
+\f@nch@O@orh=\skip55
+\f@nch@O@elf=\skip56
+\f@nch@O@erf=\skip57
+\f@nch@O@olf=\skip58
+\f@nch@O@orf=\skip59
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/09/23 v2.17i AMS math features
+\@mathmargin=\skip60
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks22
+\ex@=\dimen164
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen165
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count197
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count198
+\leftroot@=\count199
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count266
+\DOTSCASE@=\count267
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box49
+\strutbox@=\box50
+\big@size=\dimen166
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count268
+\c@MaxMatrixCols=\count269
+\dotsspace@=\muskip16
+\c@parentequation=\count270
+\dspbrk@lvl=\count271
+\tag@help=\toks23
+\row@=\count272
+\column@=\count273
+\maxfields@=\count274
+\andhelp@=\toks24
+\eqnshift@=\dimen167
+\alignsep@=\dimen168
+\tagshift@=\dimen169
+\tagwidth@=\dimen170
+\totwidth@=\dimen171
+\lineht@=\dimen172
+\@envbody=\toks25
+\multlinegap=\skip61
+\multlinetaggap=\skip62
+\mathdisplay@stack=\toks26
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count275
+\calc@Bcount=\count276
+\calc@Adimen=\dimen173
+\calc@Bdimen=\dimen174
+\calc@Askip=\skip63
+\calc@Bskip=\skip64
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count277
+\calc@Cskip=\skip65
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
+\g_MT_multlinerow_int=\count278
+\l_MT_multwidth_dim=\dimen175
+\origjot=\skip66
+\l_MT_shortvdotswithinadjustabove_dim=\dimen176
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen177
+\l_MT_above_intertext_sep=\dimen178
+\l_MT_below_intertext_sep=\dimen179
+\l_MT_above_shortintertext_sep=\dimen180
+\l_MT_below_shortintertext_sep=\dimen181
+\xmathstrut@box=\box51
+\xmathstrut@dim=\dimen182
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2021/01/09 v0.5r Insert pages of external PDF documents (AM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
+\ESO@tempdima=\dimen183
+\ESO@tempdimb=\dimen184
+)
+\AM@pagewidth=\dimen185
+\AM@pageheight=\dimen186
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2021/01/09 v0.5r Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count279
+\AM@pagebox=\box52
+\AM@global@opts=\toks27
+\AM@pagecnt=\count280
+\AM@toc@title=\toks28
+\c@AM@survey=\count281
+\AM@templatesizebox=\box53
+)
+(/usr/share/texlive/texmf-dist/tex/generic/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks29
+\SOUL@lasttoken=\toks30
+\SOUL@cmds=\toks31
+\SOUL@buffer=\toks32
+\SOUL@token=\toks33
+\SOUL@spaceskip=\skip67
+\SOUL@ttwidth=\dimen187
+\SOUL@uldp=\dimen188
+\SOUL@ulht=\dimen189
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2020-01-29 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count282
+\l__pdf_internal_box=\box54
+)
+
+LaTeX Warning: Unused global option(s):
+    [letter].
+
+(./doc.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+)
+\openout1 = `doc.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 472.03123pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 652.70622pt, 71.13188pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=472.03123pt
+* \textheight=652.70622pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Info: Redefining \. on input line 63.
+LaTeX Info: Redefining \% on input line 63.
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count283
+\scratchdimen=\dimen190
+\scratchbox=\box55
+\nofMPsegments=\count284
+\nofMParguments=\count285
+\everyMPshowfont=\toks34
+\MPscratchCnt=\count286
+\MPscratchDim=\dimen191
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
+\everyMPtoPDFconversion=\toks35
+) (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 71.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Package epstopdf Info: Source file: <UNAM_INGENIERIA.eps>
+(epstopdf)                    date: 2020-09-10 18:45:16
+(epstopdf)                    size: 274978 bytes
+(epstopdf)             Output file: <UNAM_INGENIERIA-eps-converted-to.pdf>
+(epstopdf)                    date: 2020-09-25 11:03:00
+(epstopdf)                    size: 53389 bytes
+(epstopdf)             Command: <repstopdf --outfile=UNAM_INGENIERIA-eps-conver
+ted-to.pdf UNAM_INGENIERIA.eps>
+(epstopdf)             \includegraphics on input line 72.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: /usr/bin/pdflatex (file ./UNAM_INGENIERIA-eps-converted-to.pdf)
+: PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<UNAM_INGENIERIA-eps-converted-to.pdf, id=1, 509.905pt x 601.24625pt>
+File: UNAM_INGENIERIA-eps-converted-to.pdf Graphic file (type pdf)
+<use UNAM_INGENIERIA-eps-converted-to.pdf>
+Package pdftex.def Info: UNAM_INGENIERIA-eps-converted-to.pdf  used on input li
+ne 72.
+(pdftex.def)             Requested size: 56.08972pt x 66.13728pt.
+
+Overfull \hbox (7.21284pt too wide) in paragraph at lines 71--80
+[][] 
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./UNAM_INGENIERIA-eps-conv
+erted-to.pdf>] [2]
+<cliente.png, id=17, 1067.99pt x 522.95375pt>
+File: cliente.png Graphic file (type png)
+<use cliente.png>
+Package pdftex.def Info: cliente.png  used on input line 171.
+(pdftex.def)             Requested size: 427.18845pt x 209.1778pt.
+<proveedor.png, id=19, 909.3975pt x 441.65pt>
+File: proveedor.png Graphic file (type png)
+<use proveedor.png>
+Package pdftex.def Info: proveedor.png  used on input line 175.
+(pdftex.def)             Requested size: 409.2251pt x 198.74066pt.
+ [3] [4 <./cliente.png> <./proveedor.png>]
+<productos.png, id=28, 858.20625pt x 526.96875pt>
+File: productos.png Graphic file (type png)
+<use productos.png>
+Package pdftex.def Info: productos.png  used on input line 180.
+(pdftex.def)             Requested size: 386.18924pt x 237.13374pt.
+<servicios.png, id=29, 894.34125pt x 537.00626pt>
+File: servicios.png Graphic file (type png)
+<use servicios.png>
+Package pdftex.def Info: servicios.png  used on input line 184.
+(pdftex.def)             Requested size: 402.44984pt x 241.65057pt.
+ [5 <./productos.png> <./servicios.png>]
+<inventario.png, id=35, 1129.21875pt x 473.77pt>
+File: inventario.png Graphic file (type png)
+<use inventario.png>
+Package pdftex.def Info: inventario.png  used on input line 189.
+(pdftex.def)             Requested size: 451.6795pt x 189.50464pt.
+<venta.png, id=36, 830.10126pt x 522.95375pt>
+File: venta.png Graphic file (type png)
+<use venta.png>
+Package pdftex.def Info: venta.png  used on input line 193.
+(pdftex.def)             Requested size: 373.54211pt x 235.32701pt.
+ [6 <./inventario.png> <./venta.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 198--202
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 198--202
+
+ []
+
+<MER.png, id=42, 1089.06876pt x 526.96875pt>
+File: MER.png Graphic file (type png)
+<use MER.png>
+Package pdftex.def Info: MER.png  used on input line 204.
+(pdftex.def)             Requested size: 490.07642pt x 237.13374pt.
+
+Overfull \hbox (18.04518pt too wide) in paragraph at lines 204--205
+[][] 
+ []
+
+[7 <./MER.png>]
+<clienteMR.png, id=48, 1138.2525pt x 523.9575pt>
+File: clienteMR.png Graphic file (type png)
+<use clienteMR.png>
+Package pdftex.def Info: clienteMR.png  used on input line 213.
+(pdftex.def)             Requested size: 512.20891pt x 235.77869pt.
+
+Overfull \hbox (40.17767pt too wide) in paragraph at lines 213--214
+[][] 
+ []
+
+<proveedorMR.png, id=49, 683.55376pt x 526.96875pt>
+File: proveedorMR.png Graphic file (type png)
+<use proveedorMR.png>
+Package pdftex.def Info: proveedorMR.png  used on input line 217.
+(pdftex.def)             Requested size: 307.59634pt x 237.13374pt.
+[8 <./clienteMR.png> <./proveedorMR.png>]
+<productoMR.png, id=55, 1118.1775pt x 493.845pt>
+File: productoMR.png Graphic file (type png)
+<use productoMR.png>
+Package pdftex.def Info: productoMR.png  used on input line 222.
+(pdftex.def)             Requested size: 503.17523pt x 222.22818pt.
+
+Overfull \hbox (31.144pt too wide) in paragraph at lines 222--223
+[][] 
+ []
+
+<impresionMR.png, id=56, 1138.2525pt x 478.78876pt>
+File: impresionMR.png Graphic file (type png)
+<use impresionMR.png>
+Package pdftex.def Info: impresionMR.png  used on input line 226.
+(pdftex.def)             Requested size: 512.20891pt x 215.45294pt.
+
+Overfull \hbox (40.17767pt too wide) in paragraph at lines 226--227
+[][] 
+ []
+
+[9 <./productoMR.png> <./impresionMR.png>]
+<recargaMR.png, id=62, 1126.2075pt x 483.8075pt>
+File: recargaMR.png Graphic file (type png)
+<use recargaMR.png>
+Package pdftex.def Info: recargaMR.png  used on input line 231.
+(pdftex.def)             Requested size: 506.7887pt x 217.71136pt.
+
+Overfull \hbox (34.75746pt too wide) in paragraph at lines 231--232
+[][] 
+ []
+
+<inventarioMR.png, id=63, 935.495pt x 526.96875pt>
+File: inventarioMR.png Graphic file (type png)
+<use inventarioMR.png>
+Package pdftex.def Info: inventarioMR.png  used on input line 235.
+(pdftex.def)             Requested size: 420.96886pt x 237.13374pt.
+[10 <./recargaMR.png> <./InventarioMR.png>]
+<ventaMR.png, id=69, 937.5025pt x 525.965pt>
+File: ventaMR.png Graphic file (type png)
+<use ventaMR.png>
+Package pdftex.def Info: ventaMR.png  used on input line 240.
+(pdftex.def)             Requested size: 421.87222pt x 236.68205pt.
+<MR.png, id=70, 815.045pt x 523.9575pt>
+File: MR.png Graphic file (type png)
+<use MR.png>
+Package pdftex.def Info: MR.png  used on input line 244.
+(pdftex.def)             Requested size: 366.76686pt x 235.77869pt.
+ [11 <./ventaMR.png> <./MR.png>]
+<clienteEmailProveedorBD.png, id=76, 781.92125pt x 525.965pt>
+File: clienteEmailProveedorBD.png Graphic file (type png)
+<use clienteEmailProveedorBD.png>
+Package pdftex.def Info: clienteEmailProveedorBD.png  used on input line 254.
+(pdftex.def)             Requested size: 390.95967pt x 262.98184pt.
+<telefonoInventarioBD.png, id=77, 927.465pt x 397.485pt>
+File: telefonoInventarioBD.png Graphic file (type png)
+<use telefonoInventarioBD.png>
+Package pdftex.def Info: telefonoInventarioBD.png  used on input line 258.
+(pdftex.def)             Requested size: 417.3554pt x 178.8666pt.
+<productoImpresionRecargaBD.png, id=78, 1009.7725pt x 504.88625pt>
+File: productoImpresionRecargaBD.png Graphic file (type png)
+<use productoImpresionRecargaBD.png>
+Package pdftex.def Info: productoImpresionRecargaBD.png  used on input line 262
+.
+(pdftex.def)             Requested size: 454.39343pt x 227.1967pt.
+<consumoBD.png, id=79, 1016.79875pt x 271.0125pt>
+File: consumoBD.png Graphic file (type png)
+<use consumoBD.png>
+Package pdftex.def Info: consumoBD.png  used on input line 266.
+(pdftex.def)             Requested size: 457.55522pt x 121.95448pt.
+
+[12 <./clienteEmailProveedorBD.png> <./telefonoInventarioBD.png>] [13 <./produc
+toImpresionRecargaBD.png> <./consumoBD.png>]
+<viewProveedorClienteCompra.png, id=91, 554.07pt x 403.5075pt>
+File: viewProveedorClienteCompra.png Graphic file (type png)
+<use viewProveedorClienteCompra.png>
+Package pdftex.def Info: viewProveedorClienteCompra.png  used on input line 280
+.
+(pdftex.def)             Requested size: 443.2566pt x 322.80644pt.
+<viewProdRecargaImpresionInventario.png, id=92, 636.3775pt x 491.8375pt>
+File: viewProdRecargaImpresionInventario.png Graphic file (type png)
+<use viewProdRecargaImpresionInventario.png>
+Package pdftex.def Info: viewProdRecargaImpresionInventario.png  used on input 
+line 285.
+(pdftex.def)             Requested size: 509.10269pt x 393.47052pt.
+
+Overfull \hbox (37.07146pt too wide) in paragraph at lines 285--286
+[][] 
+ []
+
+[14 <./viewProveedorClienteCompra.png>] [15 <./viewProdRecargaImpresionInventar
+io.png>]
+<function_Trigger.png, id=102, 758.835pt x 424.58624pt>
+File: function_Trigger.png Graphic file (type png)
+<use function_Trigger.png>
+Package pdftex.def Info: function_Trigger.png  used on input line 290.
+(pdftex.def)             Requested size: 531.1809pt x 297.20834pt.
+
+Overfull \hbox (59.14966pt too wide) in paragraph at lines 290--291
+[][] 
+ []
+
+<viewInvenProvClienteR.png, id=103, 1204.5pt x 457.71pt>
+File: viewInvenProvClienteR.png Graphic file (type png)
+<use viewInvenProvClienteR.png>
+Package pdftex.def Info: viewInvenProvClienteR.png  used on input line 296.
+(pdftex.def)             Requested size: 529.98164pt x 201.39302pt.
+
+Overfull \hbox (57.95041pt too wide) in paragraph at lines 296--297
+[][] 
+ []
+
+[16 <./function_Trigger.png> <./viewInvenProvClienteR.png>]
+<viewImpreProdR.png, id=109, 782.925pt x 372.39125pt>
+File: viewImpreProdR.png Graphic file (type png)
+<use viewImpreProdR.png>
+Package pdftex.def Info: viewImpreProdR.png  used on input line 301.
+(pdftex.def)             Requested size: 469.75862pt x 223.43646pt.
+<viewRecargaR.png, id=110, 482.80376pt x 585.18625pt>
+File: viewRecargaR.png Graphic file (type png)
+<use viewRecargaR.png>
+Package pdftex.def Info: viewRecargaR.png  used on input line 305.
+(pdftex.def)             Requested size: 289.6845pt x 351.11446pt.
+<viewConsumoR.png, id=111, 975.645pt x 305.14pt>
+File: viewConsumoR.png Graphic file (type png)
+<use viewConsumoR.png>
+Package pdftex.def Info: viewConsumoR.png  used on input line 309.
+(pdftex.def)             Requested size: 487.8213pt x 152.56961pt.
+
+Overfull \hbox (15.79007pt too wide) in paragraph at lines 309--310
+[][] 
+ []
+
+[17 <./viewImpreProdR.png> <./viewRecargaR.png>] [18 <./viewConsumoR.png>]
+<func1.png, id=122, 1052.93375pt x 581.17125pt>
+File: func1.png Graphic file (type png)
+<use func1.png>
+Package pdftex.def Info: func1.png  used on input line 346.
+(pdftex.def)             Requested size: 463.29228pt x 255.71614pt.
+<func1-1.png, id=123, 1315.91624pt x 307.1475pt>
+File: func1-1.png Graphic file (type png)
+<use func1-1.png>
+Package pdftex.def Info: func1-1.png  used on input line 350.
+(pdftex.def)             Requested size: 460.57759pt x 107.50323pt.
+<func2.png, id=124, 1027.84pt x 457.71pt>
+File: func2.png Graphic file (type png)
+<use func2.png>
+Package pdftex.def Info: func2.png  used on input line 354.
+(pdftex.def)             Requested size: 462.52373pt x 205.96759pt.
+<func2-1.png, id=125, 1236.62pt x 337.26pt>
+File: func2-1.png Graphic file (type png)
+<use func2-1.png>
+Package pdftex.def Info: func2-1.png  used on input line 358.
+(pdftex.def)             Requested size: 494.63924pt x 134.9016pt.
+
+Overfull \hbox (22.608pt too wide) in paragraph at lines 358--359
+[][] 
+ []
+
+[19 <./func1.png> <./func1-1.png>]
+<func3.png, id=132, 703.62875pt x 605.26125pt>
+File: func3.png Graphic file (type png)
+<use func3.png>
+Package pdftex.def Info: func3.png  used on input line 362.
+(pdftex.def)             Requested size: 422.18051pt x 363.15953pt.
+<func3-1.png, id=133, 1090.0725pt x 339.2675pt>
+File: func3-1.png Graphic file (type png)
+<use func3-1.png>
+Package pdftex.def Info: func3-1.png  used on input line 366.
+(pdftex.def)             Requested size: 436.02127pt x 135.70459pt.
+ [20 <./func2.png> <./func2-1.png>]
+<func4-1.png, id=139, 1011.78pt x 299.1175pt>
+File: func4-1.png Graphic file (type png)
+<use func4-1.png>
+Package pdftex.def Info: func4-1.png  used on input line 370.
+(pdftex.def)             Requested size: 455.2968pt x 134.60162pt.
+<func4-2.png, id=140, 981.6675pt x 235.88126pt>
+File: func4-2.png Graphic file (type png)
+<use func4-2.png>
+Package pdftex.def Info: func4-2.png  used on input line 374.
+(pdftex.def)             Requested size: 441.74629pt x 106.14558pt.
+ [21 <./func3.png> <./func3-1.png>]
+<func4-3.png, id=146, 1123.19624pt x 340.27126pt>
+File: func4-3.png Graphic file (type png)
+<use func4-3.png>
+Package pdftex.def Info: func4-3.png  used on input line 378.
+(pdftex.def)             Requested size: 449.27054pt x 136.10608pt.
+ [22 <./func4-1.png> <./func4-2.png> <./func4-3.png>]
+[23] (./doc.aux
+LaTeX Info: Redefining \. on input line 8.
+LaTeX Info: Redefining \% on input line 8.
+) ) 
+Here is how much of TeX's memory you used:
+ 7261 strings out of 479304
+ 103344 string characters out of 5869779
+ 426613 words of memory out of 5000000
+ 24272 multiletter control sequences out of 15000+600000
+ 414880 words of font info for 55 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 68i,14n,74p,1332b,361s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/usr/share/texm
+f/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texmf/fonts/type1/public
+/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.p
+fb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf
+/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/
+cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pf
+b>
+Output written on doc.pdf (23 pages, 2061909 bytes).
+PDF statistics:
+ 180 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 181 words of extra memory for PDF output out of 10000 (max. 10000000)
+

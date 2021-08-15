@@ -81,3 +81,4 @@ INSERT INTO consumo(FechaVenta,CantidadArticulo,PrecioArticulo,CodigoBarras) VAL
 INSERT INTO consumo(FechaVenta,CantidadArticulo,PrecioArticulo,CodigoBarras) VALUES ('29-08-2021',5,12,'321654789021');
 INSERT INTO consumo(FechaVenta,CantidadArticulo,PrecioArticulo,idRecarga) VALUES ('29-11-2021',3,10,8);
 
+

@@ -50,7 +50,6 @@ int esFecha(char * fecha)
     
     if(token != NULL){
         while(token != NULL){
-            printf("Token: %s\n", token);
             if(!esNumero(token)) return 0;
             if((i==0  || i==1  )&& strlen(token) != 2 ) return 0;
             else if(i==2 && strlen(token) != 4 ) return 0;
@@ -268,6 +267,7 @@ void registrarCliente(PGconn *conn)
     char inicio[] = "INSERT INTO cliente VALUES ('";
     char * inst = (char*) malloc(sizeof(char));
     char * instEmail = (char*) malloc(sizeof(char)*98);
+    char * opEmail = (char*) malloc(sizeof(char)*2);
 
     do
     {
@@ -298,25 +298,30 @@ void registrarCliente(PGconn *conn)
     {
         leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
     } while (!esNumero(domicilio[4]) || domicilio[4][0] == '\n');
-    do
-    {
-        leerCadena(&email,"Ingrese su email\n",50);
-    } while (email[0] == '\n');
 
     UnirInfo(&inst,RFC,nombre,domicilio,inicio);
-
-    strcpy(instEmail,iniEmail);
-    strcat(instEmail,email);
-    strcat(instEmail,"','");
-    strcat(instEmail,RFC);
-    strcat(instEmail,"')");
-    instEmail = (char*) realloc(instEmail,sizeof(char)*strlen(instEmail)+1);
-    
-    printf("%s-%ld\n",inst,strlen(inst));
-    printf("%s-%ld\n",instEmail,strlen(instEmail));
-
     do_something(conn,inst);
-    do_something(conn,instEmail);
+    do
+    {
+        do
+        {
+            leerCadena(&email,"Ingrese su email\n",50);
+        } while (email[0] == '\n');
+
+        strcpy(instEmail,iniEmail);
+        strcat(instEmail,email);
+        strcat(instEmail,"','");
+        strcat(instEmail,RFC);
+        strcat(instEmail,"')");
+        instEmail = (char*) realloc(instEmail,sizeof(char)*strlen(instEmail)+1);
+
+        do_something(conn,instEmail);
+
+        leerCadena(&opEmail,"Cuenta con Otro Email?\n\t [s]: SI \n \t [otro]: NO\n",2);
+        
+    } while (!strcmp(opEmail,"s"));
+    
+    
 }
 
 // Almacena los datos del cliente y los inserta en la tabla
@@ -368,11 +373,8 @@ void registrarProducto(PGconn *conn)
     } while (!esNumero(idTipoProducto) || idTipoProducto[0] == '\n'  || obtenerNumeroFilas(conn,"SELECT * FROM tipoproducto;") +48 < idTipoProducto[0] || idTipoProducto[0] < '1');
     printf("b\n");
     unirInfoInventario(&instInventario,codigoBarras,precioCompra,fechaCompra,stock,iniInventario);
-    printf("%s\n",instInventario);
     unirInfoProducto(&instProducto,codigoBarras,precioVenta,marca,descripcion,idTipoProducto,iniProducto);
 
-    printf("%s-%ld\n",instInventario,strlen(instInventario));
-    printf("%s-%ld\n",instProducto,strlen(instProducto));
 
     do_something(conn,instInventario);
     do_something(conn,instProducto);
@@ -396,6 +398,8 @@ void registrarProveedor(PGconn *conn)
     char inicio[] = "INSERT INTO proveedor VALUES ('";
     char * inst = (char*) malloc(sizeof(char));
     char * instTelefono = (char*) malloc(sizeof(char)*75);
+
+    char * opTelefono = (char*) malloc(sizeof(char)*2);
 
     do
     {
@@ -425,26 +429,29 @@ void registrarProveedor(PGconn *conn)
     {
         leerCadena(&domicilio[4],"Ingrese su Numero Oficial \n",5);
     } while (!esNumero(domicilio[4]) || domicilio[4][0] == '\n');
-    do
-    {
-        leerCadena(&telefono,"Ingrese su Telefono \n",10);
-    } while (strlen(telefono) != 10 || !esNumero(telefono));
-
 
     UnirInfo(&inst,razonSocial,nombre,domicilio,inicio);
-
-    strcpy(instTelefono,iniTelefono);
-    strcat(instTelefono,telefono);
-    strcat(instTelefono,",'");
-    strcat(instTelefono,razonSocial);
-    strcat(instTelefono,"')");
-    instTelefono = (char*) realloc(instTelefono,sizeof(char)*strlen(instTelefono)+1);
-    
-    printf("%s-%ld\n",inst,strlen(inst));
-    printf("%s-%ld\n",instTelefono,strlen(instTelefono));
-
     do_something(conn,inst);
-    do_something(conn,instTelefono);
+    do
+    {
+        do
+        {
+            leerCadena(&telefono,"Ingrese su Telefono \n",10);
+        } while (strlen(telefono) != 10 || !esNumero(telefono));
+
+        strcpy(instTelefono,iniTelefono);
+        strcat(instTelefono,telefono);
+        strcat(instTelefono,",'");
+        strcat(instTelefono,razonSocial);
+        strcat(instTelefono,"')");
+        instTelefono = (char*) realloc(instTelefono,sizeof(char)*strlen(instTelefono)+1);
+        do_something(conn,instTelefono);
+        
+        
+        leerCadena(&opTelefono,"Cuenta con Otro Telefono?\n\t [s]: SI \n \t [otro]: NO\n",2);
+    
+    } while (!strcmp(opTelefono,"s"));
+    
 }
 
 // Muestra mensaje de error si se presenta y termina 
